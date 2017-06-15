@@ -2,6 +2,7 @@ package com.test;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.Stack;
 
@@ -13,10 +14,40 @@ public class TestSort {
 
 	public static void main(String[] args) {
 
-		int[] arr = new int[] { 7, 15, 4, 3, 20, 10 };
-		printArray(arr);
-		System.out.println("TestSort.main() kth smallest quick select "
-				+ getKthSmallestQuickSelectWorstCaseLinearTime(arr, 0, arr.length - 1, 4));
+		getKthLargestElementInStream();
+
+		// int[] arr = new int[] { 7, 15, 4, 3, 20, 10 };
+		// printArray(arr);
+		// for (int i = arr.length / 2 - 1; i >= 0; i--) {
+		// minHeapifyPractise(arr, arr.length - 1, i);
+		// }
+		// printArray(arr);
+
+		// generateAllBinaryString(3);
+		// generateBinaryStringWithoutConsecutiveOnes(3);
+
+		// System.out.println("TestSort.main() subsequence Result stack " +
+		// givenIsSubSequenceStack("AXY", "ADXCPY"));
+		// System.out.println("TestSort.main() subsequence Result stack " +
+		// givenIsSubSequenceStack("AXY", "YADXCP"));
+		// System.out.println(
+		// "TestSort.main() subsequence Result stack " +
+		// givenIsSubSequenceStack("gksrek", "geeksforgeeks"));
+		//
+		// System.out.println(
+		// "TestSort.main() subsequence Result recursive " +
+		// givenIsSubSequenceRecursive("AXY", "ADXCPY"));
+		// System.out.println(
+		// "TestSort.main() subsequence Result recursive " +
+		// givenIsSubSequenceRecursive("AXY", "YADXCP"));
+		// System.out.println("TestSort.main() subsequence Result recursive "
+		// + givenIsSubSequenceRecursive("gksrek", "geeksforgeeks"));
+
+		// int[] arr = new int[] { 7, 15, 4, 3, 20, 10 };
+		// printArray(arr);
+		// System.out.println("TestSort.main() kth smallest quick select "
+		// + getKthSmallestQuickSelectWorstCaseLinearTime(arr, 0, arr.length -
+		// 1, 4));
 		// heapSort(arr);
 		// heapSortMinHeap(arr);
 		// System.out.println("TestSort.main() kth smallest " +
@@ -988,6 +1019,27 @@ public class TestSort {
 		}
 	}
 
+	private static void minHeapifyPractise(int[] arr, int size, int elementIndex) {
+
+		int left = 2 * elementIndex + 1;
+		int right = 2 * elementIndex + 2;
+
+		int smallest = elementIndex;
+		if (left < size && arr[smallest] > arr[left]) {
+			smallest = left;
+		}
+
+		if (right < size && arr[smallest] > arr[right]) {
+			smallest = right;
+		}
+
+		if (smallest != elementIndex) {
+			swap(arr, smallest, elementIndex);
+			minHeapifyPractise(arr, size, smallest);
+		}
+
+	}
+
 	private static void heapSortMinHeap(int[] arr) {
 
 		int size = arr.length;
@@ -1169,4 +1221,131 @@ public class TestSort {
 		return arr[n / 2];
 	}
 
+	public static boolean givenIsSubSequenceStack(String subSequence, String origString) {
+		System.out.println("subsequence : " + subSequence + "  origSTring " + origString);
+		if (subSequence == null || origString == null || subSequence.length() > origString.length()) {
+			return false;
+		}
+
+		// push element from last in stack such that first element at top
+		Stack<Character> stack = new Stack<>();
+		char[] charArray = subSequence.toCharArray();
+		for (int i = charArray.length - 1; i >= 0; i--) {
+			stack.push(charArray[i]);
+		}
+
+		// now pop elements from stack if present in order
+		for (int i = 0; i < origString.length(); i++) {
+			if (stack.isEmpty()) {
+				return true;
+			}
+			if (stack.peek() == origString.charAt(i)) {
+				stack.pop();
+			}
+		}
+
+		return stack.isEmpty() ? true : false;
+	}
+
+	public static boolean givenIsSubSequenceRecursive(String subSequence, String origString) {
+		if (subSequence.isEmpty()) {
+			return true;
+		}
+
+		if (subSequence.length() > origString.length()) {
+			return false;
+		}
+
+		if (subSequence.charAt(0) == origString.charAt(0)) {
+			return givenIsSubSequenceRecursive(subSequence.substring(1), origString.substring(1));
+		}
+		return givenIsSubSequenceRecursive(subSequence, origString.substring(1));
+	}
+
+	public static void generateBinaryStringWithoutConsecutiveOnes(int k) {
+		if (k <= 0) {
+			return;
+		}
+		int[] arrA = new int[k];
+		arrA[0] = 0;
+		generateBinaryStringWithoutConsecutiveOnesUtil(k, arrA, 1);
+
+		arrA[0] = 1;
+		generateBinaryStringWithoutConsecutiveOnesUtil(k, arrA, 1);
+	}
+
+	public static void generateBinaryStringWithoutConsecutiveOnesUtil(int k, int[] arr, int n) {
+		if (n == k) {
+			System.out.println(Arrays.toString(arr));
+			return;
+		}
+
+		if (arr[n - 1] == 0) {
+			arr[n] = 0;
+			generateBinaryStringWithoutConsecutiveOnesUtil(k, arr, n + 1);
+			arr[n] = 1;
+			generateBinaryStringWithoutConsecutiveOnesUtil(k, arr, n + 1);
+		}
+
+		if (arr[n - 1] == 1) {
+			arr[n] = 0;
+			generateBinaryStringWithoutConsecutiveOnesUtil(k, arr, n + 1);
+		}
+
+		if (arr[n - 1] == 1) {
+
+		}
+
+	}
+
+	public static void generateAllBinaryString(int k) {
+		int[] arrA = new int[k];
+		generateAllBinaryString(arrA, k);
+	}
+
+	private static void generateAllBinaryString(int[] arrA, int n) {
+		if (n <= 0) {
+			System.out.println(Arrays.toString(arrA));
+		} else {
+			arrA[n - 1] = 0;
+			generateAllBinaryString(arrA, n - 1);
+			arrA[n - 1] = 1;
+			generateAllBinaryString(arrA, n - 1);
+		}
+	}
+
+	private static void getKthLargestElementInStream() {
+		System.out.println("Enter value of k and enter k elements");
+		Scanner scan = new Scanner(System.in);
+		int k = scan.nextInt();
+		int arr[] = new int[k];
+
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println("Enter Elements upto k :");
+			arr[i] = scan.nextInt();
+		}
+
+		printArray(arr);
+		buildMinHeap(arr);
+		printArray(arr);
+		System.out.println("k th largest for Min Heap is root element " + arr[0]);
+
+		while (true) {
+			System.out.println("Enter next");
+			int nextInt = scan.nextInt();
+			if (nextInt > arr[0]) {
+				arr[0] = nextInt;
+				minHeapify(arr, k, 0);
+			}
+			printArray(arr);
+			System.out.println("k th largest for Min Heap is root element " + arr[0]);
+		}
+	}
+
+	private static void buildMinHeap(int arr[]) {
+		int n = arr.length;
+		for (int i = n / 2 - 1; i >= 0; i--) {
+			minHeapify(arr, n, i);
+		}
+	}
 }

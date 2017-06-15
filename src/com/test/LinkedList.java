@@ -121,7 +121,7 @@ class LinkedList {
 	}
 
 	/* Returns count of nodes in linked list */
-	public int getCount() {
+	public static int getCount(Node head) {
 		Node temp = head;
 		int count = 0;
 		while (temp != null) {
@@ -379,8 +379,8 @@ class LinkedList {
 			return list1.head;
 		}
 
-		int size1 = list1.getCount();
-		int size2 = list2.getCount();
+		int size1 = getCount(list1.head);
+		int size2 = getCount(list2.head);
 
 		if (size1 == size2) {
 			return addTwoListsSameSize(list1.head, list2.head, true);
@@ -474,7 +474,7 @@ class LinkedList {
 		return merge(startListSort, endListSort);
 	}
 
-	private static Node getMiddle(Node head) {
+	public static Node getMiddle(Node head) {
 		if (head == null) {
 			return null;
 		}
@@ -1116,17 +1116,26 @@ class LinkedList {
 	public static void main(String[] args) {
 
 		LinkedList list = new LinkedList();
-		list.push(3);
-		list.push(2);
+		list.push(14);
+		list.push(12);
 		list.push(10);
-		list.push(5);
+		list.push(8);
+		list.push(6);
+		list.push(4);
+		list.push(2);
+		list.printList();
+		System.out.println();
+		System.out.println("LinkedList.main() after creating balanced bst");
+		NodeBST nodeBST = list.sortedLinkedListToBalancedBSTWithouthChangeLL();
 
-		list.printListWithPointers();
+		BST.inorderTraversal(nodeBST);
 
-		list.head = pointRandomPointerInLinkedList(list.head);
-		System.out.println("LinkedList.main() after sorting");
-
-		list.printListWithPointers();
+		// list.printListWithPointers();
+		//
+		// list.head = pointRandomPointerInLinkedList(list.head);
+		// System.out.println("LinkedList.main() after sorting");
+		//
+		// list.printListWithPointers();
 
 		// list.head = insertionSortP(list.head);
 		// LinkedList list = new LinkedList();
@@ -1738,4 +1747,27 @@ class LinkedList {
 
 		return head;
 	}
+
+	private NodeBST sortedLinkedListToBalancedBSTWithouthChangeLL() {
+		int count = LinkedList.getCount(head);
+		return sortedLinkedListToBalancedBSTOptimized(0, count - 1);
+	}
+
+	// http://www.crazyforcode.com/convert-sorted-list-balanced-bst/
+	private NodeBST sortedLinkedListToBalancedBSTOptimized(int start, int end) {
+		if (start > end) {
+			return null;
+		}
+
+		int mid = (start + end) / 2;
+		NodeBST nodeLeft = sortedLinkedListToBalancedBSTOptimized(start, mid - 1);
+
+		NodeBST root = new NodeBST(head.data);
+		root.left = nodeLeft;
+		head = head.next;
+
+		root.right = sortedLinkedListToBalancedBSTOptimized((mid + 1), end);
+		return root;
+	}
+
 }
