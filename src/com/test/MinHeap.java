@@ -9,6 +9,12 @@ public class MinHeap {
 
 	public MinHeap() {
 		heap = new int[MAX_CAPACITY];
+		capacity = MAX_CAPACITY;
+	}
+
+	public MinHeap(int capcity) {
+		heap = new int[capcity];
+		this.capacity = capcity;
 	}
 
 	public static void main(String[] args) {
@@ -21,7 +27,7 @@ public class MinHeap {
 	}
 
 	private void insert(int key) {
-		if (size + 1 > MAX_CAPACITY) {
+		if (size + 1 > capacity) {
 			System.out.println("MinHeap.insert() No space to insert in heap");
 			return;
 		}

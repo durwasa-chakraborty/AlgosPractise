@@ -2,20 +2,20 @@ package com.test;
 
 public class SortLinkedList {
 
-	Node startNode;
+	NodeLL startNode;
 
 	public static void main(String[] args) {
 		new SortLinkedList();
 	}
 
 	public SortLinkedList() {
-		Node node1 = new Node(10);
-		Node node2 = new Node(1);
-		Node node3 = new Node(-2);
-		Node node4 = new Node(8);
-		Node node5 = new Node(9);
-		Node node6 = new Node(10);
-		Node node7 = new Node(1);
+		NodeLL node1 = new NodeLL(10);
+		NodeLL node2 = new NodeLL(1);
+		NodeLL node3 = new NodeLL(-2);
+		NodeLL node4 = new NodeLL(8);
+		NodeLL node5 = new NodeLL(9);
+		NodeLL node6 = new NodeLL(10);
+		NodeLL node7 = new NodeLL(1);
 
 		node1.setNext(node2);
 		node2.setNext(node3);
@@ -30,11 +30,11 @@ public class SortLinkedList {
 		printLinkList(startNode);
 		System.out.println("");
 		System.out.println("SortLinkedList.SortLinkedList() after   ");
-		Node sortedStartNode = mergeSortLinkList(startNode);
+		NodeLL sortedStartNode = mergeSortLinkList(startNode);
 		printLinkList(sortedStartNode);
 	}
 
-	private Node mergeSortLinkList(Node startNode) {
+	private NodeLL mergeSortLinkList(NodeLL startNode) {
 
 		// Break the list until list is null or only 1 element is present in
 		// List.
@@ -47,41 +47,41 @@ public class SortLinkedList {
 		// Now 2 list are, 1st list from start to middle and 2nd list from
 		// middle+1 to last.
 
-		Node middle = getMiddle(startNode);
-		Node nextOfMiddle = middle.getNext();
+		NodeLL middle = getMiddle(startNode);
+		NodeLL nextOfMiddle = middle.getNext();
 		middle.setNext(null);
 
 		// Again breaking the List until there is only 1 element in each list.
-		Node left = mergeSortLinkList(startNode);
-		Node right = mergeSortLinkList(nextOfMiddle);
+		NodeLL left = mergeSortLinkList(startNode);
+		NodeLL right = mergeSortLinkList(nextOfMiddle);
 
 		// Once complete list is divided and contains only single element,
 		// Start merging left and right half by sorting them and passing Sorted
 		// list further.
-		Node sortedList = mergeTwoListIterative(left, right);
+		NodeLL sortedList = mergeTwoListIterative(left, right);
 
 		return sortedList;
 	}
 
 	// Iterative Approach for Merging Two Sorted List
-	private Node mergeTwoListIterative(Node leftStart, Node rightStart) {
+	private NodeLL mergeTwoListIterative(NodeLL leftStart, NodeLL rightStart) {
 
-		Node merged = null;
-		Node temp = null;
+		NodeLL merged = null;
+		NodeLL temp = null;
 
 		// To keep track of last element, so that we don't need to iterate for
 		// adding the element at last of
 		// list when either LeftStart or rightStart is NULL.
-		Node lastAddedNode = null;
+		NodeLL lastAddedNode = null;
 
 		while (leftStart != null && rightStart != null) {
 
 			if (leftStart.getData() > rightStart.getData()) {
-				temp = new Node(rightStart.getData());
+				temp = new NodeLL(rightStart.getData());
 				rightStart = rightStart.getNext();
 
 			} else {
-				temp = new Node(leftStart.getData());
+				temp = new NodeLL(leftStart.getData());
 				leftStart = leftStart.getNext();
 			}
 
@@ -102,13 +102,13 @@ public class SortLinkedList {
 		return merged;
 	}
 
-	private Node getMiddle(Node startNode) {
+	private NodeLL getMiddle(NodeLL startNode) {
 		if (startNode == null) {
 			return startNode;
 		}
 
-		Node pointer1 = startNode;
-		Node pointer2 = startNode;
+		NodeLL pointer1 = startNode;
+		NodeLL pointer2 = startNode;
 
 		while (pointer2 != null && pointer2.getNext() != null && pointer2.getNext().getNext() != null) {
 			pointer1 = pointer1.getNext();
@@ -118,8 +118,8 @@ public class SortLinkedList {
 		return pointer1;
 	}
 
-	private void printLinkList(Node startNode) {
-		Node temp = startNode;
+	private void printLinkList(NodeLL startNode) {
+		NodeLL temp = startNode;
 		while (temp != null) {
 			System.out.print(temp.getData() + " ");
 			temp = temp.getNext();

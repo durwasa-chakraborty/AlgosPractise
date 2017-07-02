@@ -1,66 +1,27 @@
 package com.test;
 
-/* Linked list Node */
- class Node {
-	public int data;
-	public char textData;
-	public Node next;
-	public Node random;
-	public int x, y;
+public class Node implements PrintableNode {
 
-	/**
-	 * @param x
-	 * @param y
-	 */
-	public Node(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
+	int data;
+	Node left, right;
 
-	Node(int d) {
-		setData(d);
-		setNext(null);
-	}
-
-	Node(char d) {
-		textData = d;
-		setNext(null);
+	public Node(int key) {
+		this.data = key;
 	}
 
 	@Override
-	public String toString() {
-		Node cur = this;
-		String str = "";
-
-		while (cur != null) {
-			str += cur.getData() + "->";
-			cur = cur.getNext();
-		}
-
-		return str;
+	public PrintableNode getLeft() {
+		return left;
 	}
 
-	public int getData() {
-		return data;
+	@Override
+	public PrintableNode getRight() {
+		return right;
 	}
 
-	public void setData(int data) {
-		this.data = data;
+	@Override
+	public String getText() {
+		return data + "";
 	}
 
-	public Node getNext() {
-		return next;
-	}
-
-	public void setNext(Node next) {
-		this.next = next;
-	}
-
-	public Node getPrev() {
-		return random;
-	}
-
-	public void setPrev(Node prev) {
-		this.random = prev;
-	}
 }

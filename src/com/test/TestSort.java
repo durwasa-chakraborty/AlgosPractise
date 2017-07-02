@@ -10,11 +10,86 @@ import java.util.Stack;
  * @author Reema
  *
  */
+/**
+ * @author Reema
+ *
+ */
 public class TestSort {
 
 	public static void main(String[] args) {
 
-		getKthLargestElementInStream();
+		
+		
+		// int arr[][] = { { 1, 2, 32, 46 }, { 4, 5, 15, 18, 20 }, { 3 }, { 6, 8
+		// } };
+		// print2DArray(arr);
+		// System.out.println("after sorting");
+		// printArray(mergeKSortedArrays(arr, arr.length));
+
+		// int arr[] = { 15, 4, 14, 100, 10, 5 };
+		// printArray(arr);
+		// heapSortPractise(arr);
+		// System.out.println("TestSort.main() after sorting");
+		// System.out.println("");
+		// printArray(arr);
+
+		// Scanner in = new Scanner(System.in);
+		// String a = in.next();
+		// String b = in.next();
+		// System.out.println(numberNeededForEncryptionForAnagrams(a, b));
+
+		// int arr[] = { 5, 5, 10, 100, 10, 5 };
+		// int arr[] = { 5, 5, 10, 40, 50, 35 };
+		// int arr[] = { 1,2,3 };
+		// int arr[] = { 1, 20, 3 };
+		// System.out.println("TestSort.main()" +
+		// maxSumNoTwoElementsAdjacentGFGSecond(arr));
+
+		// int arr[] = { 1, 1, 2, 2, 2, 2, 3, 3 };
+		// System.out.println("TestSort.main() number of occurneces" +
+		// getNumberOfOccurencesInSortedArray(arr, 3));
+		;
+		// int arr[] = { 10, 5, 3, 4, 3, 5, 6 };
+		// printFirstRepeating(arr);
+
+		// char text[] = { 't', 'h', 'i', 's', 'i', 's', 'a', 't', 'e', 's',
+		// 't', 't', 'e', 'x', 't' };
+		// char pat[] = { 't', 'e', 's', 't' };
+		// System.out.println("TestSort.main() find " +
+		// recursiveSubStringSearch(pat, text, 0, 0));
+		// int[] arr = { 5, 4, 5, 6, 5, 4, 3, 2 };
+		// System.out.println(
+		// "TestSort.main() search index " +
+		// searchWheredifferenceBetweenElementsOne(arr, arr.length, 10));
+
+		// int arr[] = { 1, 3, 0, 2, 5 };
+		// int arr[] = { 1, 6, 4, 10, 2, 5 };
+		// printArray(arr);
+		// System.out.println("after processing");
+		// printArray(nearestSmallestOnLeftSideInArrayPractise(arr));
+
+		// int arr[] = { 5, 1, 4, 3, 6, 8, 11, 12 };
+		// findElementBeforeWhichSmallerAfterWhichLarger(arr);
+
+		// int arr[] = { -1, -4, -2, 0, -5 };
+		// int arr[] = { 1, 4, 3, 6, 7, 0 };
+		// findAPairWithMaximumProduct(arr);
+		// int[] arr1 = { 4, 5, 6, 1, 2, 3 };
+		// pairOfSumSortedRotated(arr1, 4);
+		// int arr1[] = { 1, 2, 3, 6 };
+		// int arr2[] = { 4, 6, 8, 10 };
+
+		// int arr1[] = { 1, 12, 15, 26, 38 };
+		// int arr2[] = { 2, 13, 17, 30, 45 };
+
+		// int arr1[] = { 1, 2, 3 };
+		// int arr2[] = { 4, 5, 6 };
+		// System.out.println("TestSort.main() median normal " +
+		// getMedianOfTwoSortedArrays(arr1, arr2));
+
+		// System.out.println("TestSort.main() median optimized " +
+		// getMedianOfTwoSortedArraysOptimized(arr1, arr2));
+		// getKthLargestElementInStream();
 
 		// int[] arr = new int[] { 7, 15, 4, 3, 20, 10 };
 		// printArray(arr);
@@ -224,7 +299,7 @@ public class TestSort {
 		for (int i = 0; i < arr.length; i++) {
 			int j = i - 1;
 			int item = arr[i];
-			int pos = binarySearch(arr, item, 0, j);
+			int pos = binarySearchForInsertionSort(arr, item, 0, j);
 
 			while (j >= pos) {
 				arr[j + 1] = arr[j];
@@ -236,7 +311,7 @@ public class TestSort {
 
 	}
 
-	private static int binarySearch(int[] arr, int item, int low, int high) {
+	private static int binarySearchForInsertionSort(int[] arr, int item, int low, int high) {
 		if (high <= low) {
 			return (item > arr[low]) ? low + 1 : low;
 		}
@@ -247,9 +322,9 @@ public class TestSort {
 		}
 
 		if (item < arr[middle]) {
-			return binarySearch(arr, item, low, middle - 1);
+			return binarySearchForInsertionSort(arr, item, low, middle - 1);
 		}
-		return binarySearch(arr, item, middle + 1, high);
+		return binarySearchForInsertionSort(arr, item, middle + 1, high);
 	}
 
 	private static void selectionSort(int[] arr) {
@@ -661,8 +736,10 @@ public class TestSort {
 
 			if (tempSum < sum) {
 				low = (low + 1) % length;
+				System.out.println("low values" + low);
 			} else {
 				high = (length + high - 1) % length;
+				System.out.println("high values" + high);
 			}
 		}
 
@@ -979,8 +1056,6 @@ public class TestSort {
 		}
 
 		for (int i = size - 1; i >= 0; i--) {
-			printArray(arr);
-			printHeap(arr);
 			swap(arr, 0, i);
 			maxHeapify(arr, i, 0);
 		}
@@ -1348,4 +1423,476 @@ public class TestSort {
 			minHeapify(arr, n, i);
 		}
 	}
+
+	/**
+	 * both arrays have same length
+	 * 
+	 * @param arr1
+	 * @param arr2
+	 * @return
+	 */
+	private static int getMedianOfTwoSortedArrays(int[] arr1, int[] arr2) {
+		if (arr1.length != arr2.length) {
+			System.out.println("TestSort.getMedianOfTwoSortedArrays() not have same length of arrays");
+			return -1;
+		}
+		int sizeCovered = 0;
+		// both arrays have same length
+		int length = arr1.length;
+		int i = 0, j = 0;
+		int median1 = -1;
+		int median2 = -1;
+		while (i < length && j < length && sizeCovered <= length) {
+			if (arr1[i] < arr2[j]) {
+				median2 = median1;
+				median1 = arr1[i];
+				i++;
+			} else {
+				median2 = median1;
+				median1 = arr2[j];
+				j++;
+			}
+			sizeCovered++;
+		}
+
+		if (sizeCovered == length + 1) {
+			return (median1 + median2) / 2;
+		}
+
+		while (i < length && sizeCovered <= length) {
+			median2 = median1;
+			median1 = arr1[i];
+			i++;
+			sizeCovered++;
+		}
+
+		while (j < length && sizeCovered <= length) {
+			median2 = median1;
+			median1 = arr2[j];
+			j++;
+			sizeCovered++;
+		}
+
+		return (median1 + median2) / 2;
+	}
+
+	/**
+	 * both arrays should be of same size
+	 * 
+	 * @param arr1
+	 * @param arr2
+	 * @return
+	 */
+	private static int getMedianOfTwoSortedArraysOptimized(int[] arr1, int[] arr2) {
+
+		if (arr1.length != arr2.length) {
+			System.out.println("both arrays are not of same size");
+			return -1;
+		}
+
+		int length = arr1.length;
+
+		if (length == 1) {
+			return (arr1[0] + arr1[0]) / 2;
+		}
+
+		if (length == 2) {
+			return ((getMax(arr1[0], arr2[0]) + getMin(arr1[1], arr2[1])) / 2);
+		}
+
+		int median1 = getMedianOfSortedArray(arr1);
+		int median2 = getMedianOfSortedArray(arr2);
+
+		if (median1 > median2) {
+			if (length % 2 == 0) {
+				return getMedianOfTwoSortedArraysOptimized(Arrays.copyOfRange(arr1, 0, length / 2 + 1),
+						Arrays.copyOfRange(arr2, length / 2 - 1, length));
+			}
+			return getMedianOfTwoSortedArraysOptimized(Arrays.copyOfRange(arr1, 0, length / 2 + 1),
+					Arrays.copyOfRange(arr2, length / 2, length));
+		}
+
+		if (length % 2 == 0) {
+			return getMedianOfTwoSortedArraysOptimized(Arrays.copyOfRange(arr1, length / 2 - 1, length),
+					Arrays.copyOfRange(arr2, 0, length / 2 + 1));
+		}
+		return getMedianOfTwoSortedArraysOptimized(Arrays.copyOfRange(arr1, length / 2, length),
+				Arrays.copyOfRange(arr2, 0, length / 2 + 1));
+	}
+
+	private static int getMedianOfTwoSortedArraysOptimizedUnEqualArray(int[] arr1, int[] arr2) {
+		return -1;
+	}
+
+	private static int getMax(int a, int b) {
+		return a > b ? a : b;
+	}
+
+	private static int getMin(int a, int b) {
+		return a < b ? a : b;
+	}
+
+	private static int getMedianOfSortedArray(int[] arr) {
+		int length = arr.length;
+		return length % 2 == 0 ? arr[length / 2] + arr[length / 2 - 1] : arr[length / 2];
+	}
+
+	public static void findAPairWithMaximumProduct(int[] arr) {
+		int length = arr.length;
+		if (length < 2) {
+			System.out.println("elements less than 2");
+			return;
+		}
+
+		if (length == 2) {
+			System.out.println("pair is : " + arr[0] + "  : " + arr[1]);
+		}
+
+		int pos1 = 0, pos2 = 0;
+		int neg1 = 0, neg2 = 0;
+
+		for (int i = 0; i < arr.length; i++) {
+			int item = arr[i];
+			if (item < neg2) {
+				neg1 = neg2;
+				neg2 = item;
+			} else if (item < neg1) {
+				neg1 = item;
+			}
+
+			if (item > pos2) {
+				pos1 = pos2;
+				pos2 = item;
+			} else if (item > pos1) {
+				pos1 = item;
+			}
+
+		}
+
+		int prodNeg = neg1 * neg2;
+		int prodPos = pos1 * pos2;
+		if (prodNeg > prodPos) {
+			System.out.println("pair is " + neg1 + " : " + neg2);
+		} else {
+			System.out.println("pair is " + pos1 + " : " + pos2);
+		}
+	}
+
+	private static void findElementBeforeWhichSmallerAfterWhichLarger(int[] arr) {
+
+		int[] leftMax = new int[arr.length];
+		int[] rightMin = new int[arr.length];
+		leftMax[0] = Integer.MIN_VALUE;
+
+		for (int i = 1; i < leftMax.length; i++) {
+			leftMax[i] = getMax(arr[i - 1], leftMax[i - 1]);
+		}
+
+		rightMin[rightMin.length - 1] = Integer.MAX_VALUE;
+		for (int i = rightMin.length - 2; i >= 0; i--) {
+			rightMin[i] = getMin(arr[i + 1], rightMin[i + 1]);
+		}
+
+		for (int i = arr.length - 1; i >= 0; i--) {
+			if (leftMax[i] < arr[i] && rightMin[i] > arr[i]) {
+				System.out.println("TestSort.findElementBeforeWhichSmallerAfterWhichLarger()" + arr[i]);
+			}
+		}
+
+	}
+
+	private static void findElementBeforeWhichSmallerAfterWhichLargerUsingStack(int[] arr) {
+		Stack<Integer> stack = new Stack<>();
+		int max = arr[0];
+		stack.push(0);
+		for (int i = 1; i < arr.length; i++) {
+			if (arr[i] > max) {
+				max = arr[i];
+				stack.push(i);
+			} else {
+				while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
+					stack.pop();
+				}
+			}
+		}
+
+		if (stack.isEmpty()) {
+			System.out.println("no elemet of such type");
+		} else if (stack.peek() == arr.length - 1) {
+			stack.pop();
+			if (stack.isEmpty()) {
+				System.out.println("no elemet of such type");
+			} else {
+				System.out.println("element" + arr[stack.peek()]);
+			}
+		} else {
+			System.out.println("element" + arr[stack.peek()]);
+		}
+
+	}
+
+	private static int[] nearestSmallestOnLeftSideInArrayPractise(int[] arr) {
+
+		Stack<Integer> stack = new Stack<>();
+		int length = arr.length;
+		int nearestSmallest[] = new int[length];
+		stack.push(length - 1);
+
+		for (int i = length - 2; i >= 0; i--) {
+			while (!stack.isEmpty() && arr[i] < arr[stack.peek()]) {
+				nearestSmallest[stack.pop()] = arr[i];
+			}
+			stack.push(i);
+		}
+
+		while (!stack.isEmpty()) {
+			nearestSmallest[stack.pop()] = -1;
+		}
+
+		return nearestSmallest;
+	}
+
+	private static int searchWheredifferenceBetweenElementsOne(int arr[], int n, int x) {
+		// Searching x in arr[0..n-1]
+		int i = 0;
+		while (i <= n - 1) {
+			// Checking if element is found.
+			if (arr[i] == x)
+				return i;
+
+			// Else jumping to abs(arr[i]-x).
+			i += abs(arr[i] - x);
+		}
+
+		return -1;
+	}
+
+	private static int abs(int i) {
+		return i < 0 ? -i : i;
+	}
+
+	public static boolean recursiveSubStringSearch(char[] pat, char[] text, int indexPat, int indexText) {
+
+		if (indexPat >= pat.length) {
+			return true;
+		}
+
+		if (indexText >= text.length) {
+			return false;
+		}
+		if (pat[indexPat] == text[indexText]) {
+			return recursiveSubStringSearch(pat, text, ++indexPat, ++indexText);
+		}
+		if (indexPat != 0) {
+			return recursiveSubStringSearch(pat, text, 0, indexText);
+		}
+		return recursiveSubStringSearch(pat, text, 0, ++indexText);
+	}
+
+	public static void printFirstRepeating(int[] arr) {
+		HashSet<Integer> set = new HashSet<>();
+		int min = -1;
+		for (int i = arr.length - 1; i >= 0; i--) {
+			if (set.contains(arr[i])) {
+				min = i;
+			} else {
+				set.add(arr[i]);
+			}
+		}
+
+		if (min == -1) {
+			System.out.println("TestSort.printFirestRepeating() no repeating element");
+		} else {
+			System.out.println("TestSort.printFirstRepeating() first  minimum element " + arr[min]);
+		}
+	}
+
+	public static int getNumberOfOccurencesInSortedArray(int[] arr, int x) {
+		int index = binarySearch(arr, x, 0, arr.length);
+
+		if (index == -1) {
+			return -1;
+		}
+
+		while (index >= 0 && arr[index] == x) {
+			index--;
+		}
+
+		int occurence = 0;
+		while (index < arr.length - 1 && arr[++index] == x) {
+			occurence++;
+		}
+		return occurence;
+	}
+
+	private static int binarySearch(int[] arr, int item, int low, int high) {
+		if (high <= low) {
+			return -1;
+		}
+		int middle = (low + high) / 2;
+		if (arr[middle] == item) {
+			return middle;
+		}
+
+		if (arr[middle] > item) {
+			return binarySearch(arr, item, low, middle - 1);
+		}
+		return binarySearch(arr, item, middle + 1, high);
+	}
+
+	private static int maxSumNoTwoElementsAdjacent(int[] arr) {
+		boolean isAdjacent = true;
+		int max = arr[0];
+		int lastElement = arr[0];
+		for (int i = 1; i < arr.length; i++) {
+
+			if (arr[i] > lastElement) {
+				if (isAdjacent) {
+					max -= lastElement;
+				}
+				max += arr[i];
+				lastElement = arr[i];
+				isAdjacent = true;
+			} else {
+				if (!isAdjacent) {
+					max += arr[i];
+					lastElement = arr[i];
+					isAdjacent = true;
+				} else {
+					isAdjacent = false;
+				}
+			}
+		}
+
+		return max;
+	}
+
+	private static int maxSumNoTwoElementsAdjacentGFG(int arr[]) {
+
+		int incl = arr[0];
+		int excl = 0;
+		int excl_new;
+		int i;
+		int n = arr.length;
+
+		for (i = 1; i < n; i++) {
+			/* current max excluding i */
+			excl_new = (incl > excl) ? incl : excl;
+
+			/* current max including i */
+			incl = excl + arr[i];
+			excl = excl_new;
+		}
+
+		/* return max of incl and excl */
+		return ((incl > excl) ? incl : excl);
+	}
+
+	private static int maxSumNoTwoElementsAdjacentGFGSecond(int arr[]) {
+		int length = arr.length;
+		if (length == 1) {
+			return arr[0];
+		}
+
+		if (length == 2) {
+			return getMax(arr[0], arr[1]);
+		}
+		int[] copy = new int[length];
+
+		copy[0] = arr[0];
+		copy[1] = getMax(arr[0], arr[1]);
+
+		for (int i = 2; i < arr.length; i++) {
+			copy[i] = getMax(copy[i - 2] + arr[i], copy[i - 1]);
+		}
+
+		return copy[length - 1];
+	}
+
+	/**
+	 * https://www.hackerrank.com/challenges/ctci-making-anagrams/problem
+	 * 
+	 * @param first
+	 * @param second
+	 * @return
+	 */
+	public static int numberNeededForEncryptionForAnagrams(String first, String second) {
+		int[] lettercounts = new int[26];
+		for (char c : first.toCharArray()) {
+			lettercounts[c - 'a']++;
+		}
+		for (char c : second.toCharArray()) {
+			lettercounts[c - 'a']--;
+		}
+		int result = 0;
+		for (int i : lettercounts) {
+			result += Math.abs(i);
+		}
+		return result;
+	}
+
+	private static class MinHeapSorted {
+		int data;
+		int indexOfHeap;
+		int currentIndex;
+	}
+
+	public static int[] mergeKSortedArrays(int[][] arr, int k) {
+		int size = 0;
+		for (int i = 0; i < arr.length; i++) {
+			size += arr[i].length;
+		}
+		int[] merge = new int[size];
+		MinHeapSorted[] heap = new MinHeapSorted[k];
+		for (int i = 0; i < k; i++) {
+			heap[i] = new MinHeapSorted();
+			heap[i].data = arr[i][0];
+			heap[i].currentIndex = 0;
+			heap[i].indexOfHeap = i;
+		}
+
+		for (int i = 0; i < merge.length; i++) {
+			minHeapifyMinHeapSorted(heap, 0, k);
+			merge[i] = heap[0].data;
+			heap[0].currentIndex++;
+			int[] currentSubArray = arr[heap[0].indexOfHeap];
+			if (heap[0].currentIndex >= currentSubArray.length) {
+				heap[0].data = Integer.MAX_VALUE;
+			} else {
+				heap[0].data = currentSubArray[heap[0].currentIndex];
+			}
+
+		}
+		return merge;
+	}
+
+	public static void minHeapifyMinHeapSorted(MinHeapSorted[] arr, int root, int size) {
+		int smallest = root;
+		int leftIndex = 2 * root + 1;
+		int rightIndex = 2 * root + 2;
+
+		if (leftIndex < size && arr[smallest].data > arr[leftIndex].data) {
+			smallest = leftIndex;
+		}
+
+		if (rightIndex < size && arr[smallest].data > arr[rightIndex].data) {
+			smallest = rightIndex;
+		}
+
+		if (smallest != root) {
+			MinHeapSorted temp = arr[smallest];
+			arr[smallest] = arr[root];
+			arr[root] = temp;
+			minHeapifyMinHeapSorted(arr, smallest, size);
+		}
+	}
+
+	public static void print2DArray(int[][] arr) {
+		for (int[] a : arr) {
+			for (int i : a)
+				System.out.print(i + " ");
+			System.out.println();
+		}
+	}
+
 }

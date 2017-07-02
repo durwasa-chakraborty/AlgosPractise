@@ -2,7 +2,7 @@ package com.test;
 
 public class DoubleLinkedList {
 
-	Node head;
+	NodeLL head;
 
 	public static void main(String[] args) {
 		DoubleLinkedList list = new DoubleLinkedList();
@@ -34,15 +34,15 @@ public class DoubleLinkedList {
 
 	}
 
-	Node partitionN(Node l, Node h) {
+	NodeLL partitionN(NodeLL l, NodeLL h) {
 		// set pivot as h element
 		int x = h.data;
 
 		// similar to i = l-1 for array implementation
-		Node i = l.random;
+		NodeLL i = l.random;
 
 		// Similar to "for (int j = l; j <= h- 1; j++)"
-		for (Node j = l; j != h; j = j.next) {
+		for (NodeLL j = l; j != h; j = j.next) {
 			if (j.data <= x) {
 				// Similar to i++ for array
 				i = (i == null) ? l : i.next;
@@ -59,37 +59,37 @@ public class DoubleLinkedList {
 	}
 
 	/* A recursive implementation of quicksort for linked list */
-	void _quickSort(Node l, Node h) {
+	void _quickSort(NodeLL l, NodeLL h) {
 		if (h != null && l != h && l != h.next) {
-			Node temp = partitionN(l, h);
+			NodeLL temp = partitionN(l, h);
 			_quickSort(l, temp.random);
 			_quickSort(temp.next, h);
 		}
 	}
 
 	// The main function to sort a linked list. It mainly calls _quickSort()
-	public void quickSort(Node node) {
+	public void quickSort(NodeLL node) {
 		// Find last node
-		Node head = getTail(node);
+		NodeLL head = getTail(node);
 
 		// Call the recursive QuickSort
 		_quickSort(node, head);
 	}
 
-	private void quickSortData(Node l, Node h) {
+	private void quickSortData(NodeLL l, NodeLL h) {
 
 		if (h != null && l != h && l.next != h) {
 
-			Node partitionData = partitionData(l, h);
+			NodeLL partitionData = partitionData(l, h);
 			quickSortData(l, partitionData.random);
 			quickSortData(partitionData.next, h);
 		}
 	}
 
-	private static Node partitionData(Node head, Node tail) {
-		Node temp = head;
+	private static NodeLL partitionData(NodeLL head, NodeLL tail) {
+		NodeLL temp = head;
 		int x = tail.data;
-		Node index = head.random;
+		NodeLL index = head.random;
 		while ( temp != tail) {
 			if (temp.data <= x) {
 				index = index == null ? head : index.next;
@@ -134,7 +134,7 @@ public class DoubleLinkedList {
 	// return index;
 	// }
 
-	private static Node getTail(Node head) {
+	private static NodeLL getTail(NodeLL head) {
 		if (head == null) {
 			return null;
 		}
@@ -145,16 +145,16 @@ public class DoubleLinkedList {
 		return head;
 	}
 
-	public static Node quickSort(Node head, Node endElement) {
+	public static NodeLL quickSort(NodeLL head, NodeLL endElement) {
 		if (head == null || endElement == null || head == endElement) {
 			return head;
 		}
-		Node[] partition = partition(head, endElement);
-		Node left = quickSort(partition[0], partition[1]);
-		Node right = quickSort(partition[3], partition[4]);
+		NodeLL[] partition = partition(head, endElement);
+		NodeLL left = quickSort(partition[0], partition[1]);
+		NodeLL right = quickSort(partition[3], partition[4]);
 
 		if (left != null) {
-			Node temp2 = left;
+			NodeLL temp2 = left;
 			while (temp2.next != null) {
 				temp2 = temp2.next;
 			}
@@ -174,10 +174,10 @@ public class DoubleLinkedList {
 
 	}
 
-	private static Node[] partition(Node head, Node endElement) {
-		Node temp = head;
-		Node resultLeft = null, resultLeftHead = null;
-		Node resultRight = null, resultRightHead = null;
+	private static NodeLL[] partition(NodeLL head, NodeLL endElement) {
+		NodeLL temp = head;
+		NodeLL resultLeft = null, resultLeftHead = null;
+		NodeLL resultRight = null, resultRightHead = null;
 		while (temp != endElement) {
 
 			if (endElement.data > temp.data) {
@@ -228,7 +228,7 @@ public class DoubleLinkedList {
 		// resultRight.next = null;
 		// }
 
-		Node[] result = new Node[5];
+		NodeLL[] result = new NodeLL[5];
 		result[0] = resultLeftHead;
 		result[1] = resultLeft;
 		result[2] = endElement;
@@ -238,12 +238,12 @@ public class DoubleLinkedList {
 		return result;
 	}
 
-	public static void print(Node head) {
+	public static void print(NodeLL head) {
 		if (head == null) {
 			System.out.println("DoubleLinkedList.print() empty");
 			return;
 		}
-		Node tnode = head;
+		NodeLL tnode = head;
 		while (tnode != null) {
 			System.out.print(tnode.getData() + " ");
 			tnode = tnode.getNext();
@@ -251,7 +251,7 @@ public class DoubleLinkedList {
 	}
 
 	public void push(int item) {
-		Node newNode = new Node(item);
+		NodeLL newNode = new NodeLL(item);
 		if (head == null) {
 			head = newNode;
 			return;
@@ -264,9 +264,9 @@ public class DoubleLinkedList {
 	}
 
 	public void reverse() {
-		Node prev = null;
-		Node current = head;
-		Node next;
+		NodeLL prev = null;
+		NodeLL current = head;
+		NodeLL next;
 
 		while (current != null) {
 			prev = current.random;
@@ -279,24 +279,24 @@ public class DoubleLinkedList {
 
 	}
 
-	public Node mergeSort(Node head) {
+	public NodeLL mergeSort(NodeLL head) {
 		if (head == null || head.next == null) {
 			return head;
 		}
 
-		Node middle = getMiddle(head);
-		Node next = middle.next;
+		NodeLL middle = getMiddle(head);
+		NodeLL next = middle.next;
 
 		middle.setNext(null);
 		next.setPrev(null);
-		Node fList = mergeSort(head);
-		Node sList = mergeSort(next);
+		NodeLL fList = mergeSort(head);
+		NodeLL sList = mergeSort(next);
 
 		return mergeR(fList, sList);
 
 	}
 
-	private Node merge(Node fList, Node sList) {
+	private NodeLL merge(NodeLL fList, NodeLL sList) {
 
 		if (fList == null) {
 			return sList;
@@ -306,8 +306,8 @@ public class DoubleLinkedList {
 			return fList;
 		}
 
-		Node head = null;
-		Node result = null;
+		NodeLL head = null;
+		NodeLL result = null;
 		while (fList != null && sList != null) {
 			if (fList.data < sList.data) {
 				if (result == null) {
@@ -361,7 +361,7 @@ public class DoubleLinkedList {
 	}
 
 	@SuppressWarnings("unused")
-	private Node mergeR(Node fList, Node sList) {
+	private NodeLL mergeR(NodeLL fList, NodeLL sList) {
 
 		if (fList == null) {
 			return sList;
@@ -371,7 +371,7 @@ public class DoubleLinkedList {
 			return fList;
 		}
 
-		Node result = null;
+		NodeLL result = null;
 
 		if (fList.data < sList.data) {
 			result = fList;
@@ -386,9 +386,9 @@ public class DoubleLinkedList {
 		return result;
 	}
 
-	private Node getMiddle(Node head) {
-		Node slowPtr = head;
-		Node fastPtr = head;
+	private NodeLL getMiddle(NodeLL head) {
+		NodeLL slowPtr = head;
+		NodeLL fastPtr = head;
 		while (fastPtr.next != null && fastPtr.next.next != null) {
 			slowPtr = slowPtr.next;
 			fastPtr = fastPtr.next.next;
@@ -396,7 +396,7 @@ public class DoubleLinkedList {
 		return slowPtr;
 	}
 
-	private void checkPrevPointers(Node head) {
+	private void checkPrevPointers(NodeLL head) {
 		while (head.next != null) {
 			head = head.next;
 		}

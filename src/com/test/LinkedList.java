@@ -5,7 +5,7 @@ import java.util.HashMap;
 // A complete working Java program to delete a node in a linked list
 // at a given position
 class LinkedList {
-	Node head; // head of list
+	NodeLL head; // head of list
 	FlattenNode headFlattenNode;
 
 	/* Inserts a new Node at front of the list. */
@@ -13,7 +13,7 @@ class LinkedList {
 		/*
 		 * 1 & 2: Allocate the Node & Put in the data
 		 */
-		Node new_node = new Node(new_data);
+		NodeLL new_node = new NodeLL(new_data);
 
 		/* 3. Make next of new Node as head */
 		new_node.setNext(head);
@@ -27,7 +27,7 @@ class LinkedList {
 		/*
 		 * 1 & 2: Allocate the Node & Put in the data
 		 */
-		Node new_node = new Node(x, y);
+		NodeLL new_node = new NodeLL(x, y);
 
 		/* 3. Make next of new Node as head */
 		new_node.setNext(head);
@@ -41,7 +41,7 @@ class LinkedList {
 		/*
 		 * 1 & 2: Allocate the Node & Put in the data
 		 */
-		Node new_node = new Node(new_data);
+		NodeLL new_node = new NodeLL(new_data);
 
 		/* 3. Make next of new Node as head */
 		new_node.setNext(head);
@@ -60,7 +60,7 @@ class LinkedList {
 			return;
 
 		// Store head node
-		Node temp = head;
+		NodeLL temp = head;
 
 		// If head needs to be removed
 		if (position == 0) {
@@ -78,7 +78,7 @@ class LinkedList {
 
 		// Node temp->next is the node to be deleted
 		// Store pointer to the next of node to be deleted
-		Node next = temp.getNext().getNext();
+		NodeLL next = temp.getNext().getNext();
 
 		temp.setNext(next); // Unlink the deleted node from list
 	}
@@ -87,7 +87,7 @@ class LinkedList {
 	 * This function prints contents of linked list starting from the given node
 	 */
 	public void printList() {
-		Node tnode = head;
+		NodeLL tnode = head;
 		while (tnode != null) {
 			System.out.print(tnode.getData() + " ");
 			tnode = tnode.getNext();
@@ -95,7 +95,7 @@ class LinkedList {
 	}
 
 	public void printListWithPointers() {
-		Node tnode = head;
+		NodeLL tnode = head;
 		while (tnode != null) {
 			System.out
 					.println(tnode.getData() + " " + "next node data " + (tnode.next != null ? tnode.next.data : "null")
@@ -105,7 +105,7 @@ class LinkedList {
 	}
 
 	public void printXYList() {
-		Node tnode = head;
+		NodeLL tnode = head;
 		while (tnode != null) {
 			System.out.print(tnode.x + "-" + tnode.y + "--> ");
 			tnode = tnode.getNext();
@@ -121,8 +121,8 @@ class LinkedList {
 	}
 
 	/* Returns count of nodes in linked list */
-	public static int getCount(Node head) {
-		Node temp = head;
+	public static int getCount(NodeLL head) {
+		NodeLL temp = head;
 		int count = 0;
 		while (temp != null) {
 			count++;
@@ -137,10 +137,10 @@ class LinkedList {
 			return;
 		}
 
-		Node prevNodeX = null, nodeX = null;
-		Node prevNodeY = null, nodeY = null;
-		Node prevNode = null;
-		Node tmp = head;
+		NodeLL prevNodeX = null, nodeX = null;
+		NodeLL prevNodeY = null, nodeY = null;
+		NodeLL prevNode = null;
+		NodeLL tmp = head;
 		if (tmp.getData() == x) {
 			prevNodeX = null;
 			nodeX = tmp;
@@ -197,13 +197,13 @@ class LinkedList {
 
 	}
 
-	private void swapNext(Node nodeX, Node nodeY) {
-		Node tmpS = nodeX.getNext();
+	private void swapNext(NodeLL nodeX, NodeLL nodeY) {
+		NodeLL tmpS = nodeX.getNext();
 		nodeX.setNext(nodeY.getNext());
 		nodeY.setNext(tmpS);
 	}
 
-	public static Node reverseLinkedList(Node head) {
+	public static NodeLL reverseLinkedList(NodeLL head) {
 
 		if (head == null) {
 			System.out.println("LinkedList.reverseLinkedList() empty linked list");
@@ -214,9 +214,9 @@ class LinkedList {
 			System.out.println("LinkedList.reverseLinkedList() single element already reversed");
 		}
 
-		Node prev = null;
-		Node current = head;
-		Node next = null;
+		NodeLL prev = null;
+		NodeLL current = head;
+		NodeLL next = null;
 
 		while (current != null) {
 			next = current.getNext();
@@ -231,9 +231,9 @@ class LinkedList {
 
 	}
 
-	public static Node merge(Node n1, Node n2) {
+	public static NodeLL merge(NodeLL n1, NodeLL n2) {
 
-		Node result = null;
+		NodeLL result = null;
 
 		if (n1 == null) {
 			return n2;
@@ -255,8 +255,8 @@ class LinkedList {
 		return result;
 	}
 
-	public static Node mergeI(Node n1, Node n2) {
-		Node result = null;
+	public static NodeLL mergeI(NodeLL n1, NodeLL n2) {
+		NodeLL result = null;
 
 		if (n1 == null) {
 			return n2;
@@ -266,7 +266,7 @@ class LinkedList {
 			return n1;
 		}
 
-		Node tmpHead = null;
+		NodeLL tmpHead = null;
 		while (n1 != null && n2 != null) {
 			if (n1.getData() < n2.getData()) {
 				if (result == null) {
@@ -304,12 +304,12 @@ class LinkedList {
 	 * a separate user class. It is kept here to keep code compact
 	 */
 
-	private static Node segregateEvenAndOddNodesAnother(Node head) {
-		Node tail = getTail(head);
-		Node temp = head;
-		Node next = null;
-		Node prev = null;
-		Node lastT = tail;
+	private static NodeLL segregateEvenAndOddNodesAnother(NodeLL head) {
+		NodeLL tail = getTail(head);
+		NodeLL temp = head;
+		NodeLL next = null;
+		NodeLL prev = null;
+		NodeLL lastT = tail;
 		while (temp != tail) {
 			next = temp.next;
 
@@ -358,7 +358,7 @@ class LinkedList {
 		return head;
 	}
 
-	private static Node getTail(Node head) {
+	private static NodeLL getTail(NodeLL head) {
 		if (head == null) {
 			return null;
 		}
@@ -369,7 +369,7 @@ class LinkedList {
 		return head;
 	}
 
-	private static Node addTwoLists(LinkedList list1, LinkedList list2) {
+	private static NodeLL addTwoLists(LinkedList list1, LinkedList list2) {
 
 		if (list1.head == null) {
 			return list2.head;
@@ -396,13 +396,13 @@ class LinkedList {
 			list2 = temp;
 		}
 
-		Node tempHead = list1.head;
+		NodeLL tempHead = list1.head;
 
 		for (int i = 0; i < diff; i++) {
 			tempHead = tempHead.next;
 		}
 
-		Node addTwoListsSameSize = addTwoListsSameSize(tempHead, list2.head, false);
+		NodeLL addTwoListsSameSize = addTwoListsSameSize(tempHead, list2.head, false);
 
 		addTwoListsSameSize = addCarryToRemaining(list1.head, diff, addTwoListsSameSize, true);
 
@@ -410,7 +410,7 @@ class LinkedList {
 
 			int rem = addTwoListsSameSize.data / 10;
 			addTwoListsSameSize.data %= 10;
-			Node newNode = new Node(rem);
+			NodeLL newNode = new NodeLL(rem);
 			newNode.next = addTwoListsSameSize;
 			addTwoListsSameSize = newNode;
 		}
@@ -418,20 +418,20 @@ class LinkedList {
 		return addTwoListsSameSize;
 	}
 
-	private static Node addCarryToRemaining(Node startingHead, int diff, Node addTwoListsSameSize,
+	private static NodeLL addCarryToRemaining(NodeLL startingHead, int diff, NodeLL addTwoListsSameSize,
 			boolean isStartingCall) {
 		if (diff <= 0) {
 			return null;
 		}
 
-		Node temp = addCarryToRemaining(startingHead.next, diff - 1, addTwoListsSameSize, false);
+		NodeLL temp = addCarryToRemaining(startingHead.next, diff - 1, addTwoListsSameSize, false);
 		if (temp == null) {
 			int rem = 0;
 			if (addTwoListsSameSize.data >= 10) {
 				rem = addTwoListsSameSize.data / 10;
 				addTwoListsSameSize.data %= 10;
 			}
-			Node newNode = new Node(startingHead.data + rem);
+			NodeLL newNode = new NodeLL(startingHead.data + rem);
 			newNode.next = addTwoListsSameSize;
 			addTwoListsSameSize = newNode;
 		} else {
@@ -440,7 +440,7 @@ class LinkedList {
 				rem = temp.data / 10;
 				temp.data %= 10;
 			}
-			Node newNode = new Node(startingHead.data + rem);
+			NodeLL newNode = new NodeLL(startingHead.data + rem);
 			newNode.next = temp;
 			temp = newNode;
 			addTwoListsSameSize = temp;
@@ -448,7 +448,7 @@ class LinkedList {
 		}
 
 		if (isStartingCall && addTwoListsSameSize.data >= 10) {
-			Node newNode = new Node(addTwoListsSameSize.data / 10);
+			NodeLL newNode = new NodeLL(addTwoListsSameSize.data / 10);
 			addTwoListsSameSize.data %= 10;
 			newNode.next = addTwoListsSameSize;
 			addTwoListsSameSize = newNode;
@@ -457,29 +457,29 @@ class LinkedList {
 		return addTwoListsSameSize;
 	}
 
-	private static Node mergeSort(Node head) {
+	private static NodeLL mergeSort(NodeLL head) {
 
 		if (head == null || head.getNext() == null) {
 			return head;
 		}
 
-		Node middleNode = getMiddle(head);
-		Node endList = middleNode.getNext();
+		NodeLL middleNode = getMiddle(head);
+		NodeLL endList = middleNode.getNext();
 
 		middleNode.setNext(null);
 
-		Node startListSort = mergeSort(head);
-		Node endListSort = mergeSort(endList);
+		NodeLL startListSort = mergeSort(head);
+		NodeLL endListSort = mergeSort(endList);
 
 		return merge(startListSort, endListSort);
 	}
 
-	public static Node getMiddle(Node head) {
+	public static NodeLL getMiddle(NodeLL head) {
 		if (head == null) {
 			return null;
 		}
-		Node slowNode = head;
-		Node fastNode = head;
+		NodeLL slowNode = head;
+		NodeLL fastNode = head;
 
 		while (fastNode != null && fastNode.getNext() != null && fastNode.getNext().getNext() != null) {
 			slowNode = slowNode.getNext();
@@ -489,15 +489,15 @@ class LinkedList {
 		return slowNode;
 	}
 
-	private static Node reverseInGroups(Node head, int size) {
+	private static NodeLL reverseInGroups(NodeLL head, int size) {
 		if (head == null) {
 			return null;
 		}
 
 		int i = 0;
-		Node prev = null;
-		Node current = head;
-		Node next = null;
+		NodeLL prev = null;
+		NodeLL current = head;
+		NodeLL next = null;
 		while (i != size && current != null) {
 			next = current.getNext();
 			current.setNext(prev);
@@ -510,10 +510,10 @@ class LinkedList {
 		return prev;
 	}
 
-	private static void detectAndRemoveLoop(Node head) {
+	private static void detectAndRemoveLoop(NodeLL head) {
 
-		Node slowPointer = head;
-		Node fastPointer = head;
+		NodeLL slowPointer = head;
+		NodeLL fastPointer = head;
 
 		while (slowPointer != null && fastPointer != null && fastPointer.getNext() != null) {
 			slowPointer = slowPointer.getNext();
@@ -527,9 +527,9 @@ class LinkedList {
 		}
 	}
 
-	private static void removeLoop(Node loopPointer, Node head) {
-		Node altHead = head;
-		Node altLoop;
+	private static void removeLoop(NodeLL loopPointer, NodeLL head) {
+		NodeLL altHead = head;
+		NodeLL altLoop;
 		while (true) {
 			altLoop = loopPointer;
 
@@ -548,13 +548,13 @@ class LinkedList {
 		altLoop.setNext(null);
 	}
 
-	private static Node addTwoListsSameSize(Node list1, Node list2, boolean isStartNode) {
+	private static NodeLL addTwoListsSameSize(NodeLL list1, NodeLL list2, boolean isStartNode) {
 
 		if (list1 == null && list2 == null) {
 			return null;
 		}
 
-		Node addNode = addTwoListsSameSize(list1 != null ? list1.next : null, list2 != null ? list2.next : null, false);
+		NodeLL addNode = addTwoListsSameSize(list1 != null ? list1.next : null, list2 != null ? list2.next : null, false);
 		int add = (list1 != null ? list1.data : 0) + (list2 != null ? list2.data : 0);
 		int prevRem = 0;
 		if (addNode != null && addNode.data >= 10) {
@@ -563,11 +563,11 @@ class LinkedList {
 		}
 
 		add += prevRem;
-		Node newNode = new Node(add);
+		NodeLL newNode = new NodeLL(add);
 		newNode.next = addNode;
 
 		if (isStartNode && newNode.data >= 10) {
-			Node newNode2 = new Node(newNode.data / 10);
+			NodeLL newNode2 = new NodeLL(newNode.data / 10);
 			newNode2.next = newNode;
 			newNode.data %= 10;
 			newNode = newNode2;
@@ -578,12 +578,12 @@ class LinkedList {
 	}
 
 	// choose the last node as the pivot
-	public Node quickSortRecur(Node head, Node tail) {
+	public NodeLL quickSortRecur(NodeLL head, NodeLL tail) {
 
 		if (head == tail)
 			return head;
 
-		Node pivot = tail, cur = head, pre = null, newhead = null;
+		NodeLL pivot = tail, cur = head, pre = null, newhead = null;
 
 		while (pivot != cur) {
 			if (cur.data < pivot.data) {
@@ -594,7 +594,7 @@ class LinkedList {
 			} else {
 				tail.next = cur;
 				tail = tail.next;
-				Node tmp = cur.next;
+				NodeLL tmp = cur.next;
 				cur.next = null;
 				cur = tmp;
 				if (null != pre) {
@@ -604,7 +604,7 @@ class LinkedList {
 		}
 		if (pre != null) {
 			newhead = quickSortRecur(newhead, pre);
-			Node tmp = newhead;
+			NodeLL tmp = newhead;
 			while (tmp.next != null && pivot != tmp.next)
 				tmp = tmp.next;
 			tmp.next = pivot;
@@ -616,7 +616,7 @@ class LinkedList {
 		return newhead;
 	}
 
-	public Node quickSort(Node start, Node end) {
+	public NodeLL quickSort(NodeLL start, NodeLL end) {
 		/* Exist condition */
 		// If the list contains one or less node, return the start node itself.
 		if (null == start || null == start.getNext() || start == end) {
@@ -624,17 +624,17 @@ class LinkedList {
 		}
 		/* Partition the list */
 		// Result contains start/end of left and right segments and the pivot.
-		Node[] result = partitionC(start, end);
+		NodeLL[] result = partitionC(start, end);
 
 		/* Recur the left side */
-		Node resultLeft = null; // Start of left result.
+		NodeLL resultLeft = null; // Start of left result.
 		if (null != result[0]) {
 
 			resultLeft = quickSort(result[0], result[1]);
 		}
 
 		/* Recur the right side */
-		Node resultRight = null; // Start of right result.
+		NodeLL resultRight = null; // Start of right result.
 		if (null != result[3]) {
 			resultRight = quickSort(result[3], result[4]);
 		}
@@ -666,25 +666,25 @@ class LinkedList {
 	 * @return Array of nodes[Start of left, end of left, pivot, start of right,
 	 *         end of right]
 	 */
-	private Node[] partition(Node start, Node end) {
+	private NodeLL[] partition(NodeLL start, NodeLL end) {
 		/* Choose a pivot */
 		// We are not moving pivot but the other nodes.
-		Node pivot = end;
+		NodeLL pivot = end;
 
 		/* Define the required pointers */
 		// Tail points to the end of new list
-		Node tail = end;
+		NodeLL tail = end;
 		// Start of newly arranged list
-		Node newStart = null;
+		NodeLL newStart = null;
 		// Iteration pointers
-		Node current = start;
-		Node previous = null;
+		NodeLL current = start;
+		NodeLL previous = null;
 
 		/* Iterate and move nodes */
 		// Iterate the original list till the end.
 		boolean isFirstNodeWithoutMove = true;
 		while (null != current && end != current) {
-			Node next = current.getNext();
+			NodeLL next = current.getNext();
 			// For nodes with value grater than pivot move to the right of
 			// pivot.
 			if (current.data > pivot.data) {
@@ -707,7 +707,7 @@ class LinkedList {
 		}
 
 		/* Prepare result for returning */
-		Node[] result = new Node[5];
+		NodeLL[] result = new NodeLL[5];
 		result[0] = newStart;
 		result[1] = previous;
 		result[2] = pivot;
@@ -717,28 +717,28 @@ class LinkedList {
 		return result;
 	}
 
-	private Node quickSortC(Node start, Node end) {
+	private NodeLL quickSortC(NodeLL start, NodeLL end) {
 
 		if (start == null || start.getNext() == null || start == end) {
 			return start;
 		}
 
-		Node[] partitionC = partitionC(start, end);
+		NodeLL[] partitionC = partitionC(start, end);
 
-		Node resultLeft = null;
+		NodeLL resultLeft = null;
 		if (partitionC[0] != null) {
 			resultLeft = quickSortC(partitionC[0], partitionC[1]);
 		}
 
 		if (resultLeft != null) {
-			Node temp = resultLeft;
+			NodeLL temp = resultLeft;
 			while (temp.next != null) {
 				temp = temp.next;
 			}
 			temp.next = partitionC[2];
 		}
 
-		Node resultRight = null;
+		NodeLL resultRight = null;
 		if (partitionC[3] != null) {
 			resultRight = quickSortC(partitionC[3], partitionC[4]);
 		}
@@ -755,12 +755,12 @@ class LinkedList {
 
 	}
 
-	private Node[] partitionC(Node start, Node end) {
+	private NodeLL[] partitionC(NodeLL start, NodeLL end) {
 
-		Node temp = start;
+		NodeLL temp = start;
 
-		Node fHead = null, fEnd = null;
-		Node sHead = null, sEnd = null;
+		NodeLL fHead = null, fEnd = null;
+		NodeLL sHead = null, sEnd = null;
 
 		while (temp != end) {
 			if (temp.data <= end.data) {
@@ -794,7 +794,7 @@ class LinkedList {
 			sEnd.next = null;
 		}
 
-		Node[] result = new Node[5];
+		NodeLL[] result = new NodeLL[5];
 		result[0] = fHead;
 		result[1] = fEnd;
 		result[2] = end;
@@ -804,7 +804,7 @@ class LinkedList {
 		return result;
 	}
 
-	private void moveNodeToEnd(Node current, Node previous, Node tail) {
+	private void moveNodeToEnd(NodeLL current, NodeLL previous, NodeLL tail) {
 		if (null != previous) {
 			previous.setNext(current.getNext());
 		}
@@ -812,13 +812,13 @@ class LinkedList {
 		tail.setNext(current);
 	}
 
-	public static boolean isPalidrome(Node head) {
+	public static boolean isPalidrome(NodeLL head) {
 
 		if (head == null || head.next == null) {
 			return true;
 		}
-		Node slowNode = head;
-		Node fastNode = head;
+		NodeLL slowNode = head;
+		NodeLL fastNode = head;
 
 		while (fastNode != null && fastNode.getNext() != null && fastNode.getNext().getNext() != null) {
 			slowNode = slowNode.getNext();
@@ -826,9 +826,9 @@ class LinkedList {
 		}
 
 		// for odd
-		Node oddNode = null;
-		Node fList = head;
-		Node sList = null;
+		NodeLL oddNode = null;
+		NodeLL fList = head;
+		NodeLL sList = null;
 		if (fastNode.getNext() == null) {
 			oddNode = slowNode;
 		}
@@ -850,7 +850,7 @@ class LinkedList {
 
 	}
 
-	public Node recursiveReverse(Node node) {
+	public NodeLL recursiveReverse(NodeLL node) {
 		if (node == null) {
 			return null;
 		}
@@ -859,18 +859,18 @@ class LinkedList {
 			return node;
 		}
 
-		Node next = node.next;
+		NodeLL next = node.next;
 
 		node.next = null;
 
-		Node reverse = recursiveReverse(next);
+		NodeLL reverse = recursiveReverse(next);
 
 		next.next = node;
 
 		return reverse;
 	}
 
-	public Node recursiveReverse(Node curr, Node prev) {
+	public NodeLL recursiveReverse(NodeLL curr, NodeLL prev) {
 		if (curr == null) {
 			return null;
 		}
@@ -880,14 +880,14 @@ class LinkedList {
 			return curr;
 		}
 
-		Node next = curr.next;
+		NodeLL next = curr.next;
 		curr.next = prev;
 
 		return recursiveReverse(next, curr);
 	}
 
-	public void removeSortedDuplicate(Node head) {
-		Node temp = head;
+	public void removeSortedDuplicate(NodeLL head) {
+		NodeLL temp = head;
 		while (temp != null) {
 			if (temp.next != null && temp.next.data == temp.data) {
 				temp.next = temp.next.next;
@@ -897,14 +897,14 @@ class LinkedList {
 		}
 	}
 
-	public Node reverseInGroup(Node head, int groupSize) {
+	public NodeLL reverseInGroup(NodeLL head, int groupSize) {
 		if (head == null || head.next == null) {
 			return head;
 		}
 		int count = 0;
-		Node curr = head;
-		Node prev = null;
-		Node next = null;
+		NodeLL curr = head;
+		NodeLL prev = null;
+		NodeLL next = null;
 		while (count < groupSize && curr != null) {
 			next = curr.next;
 			curr.next = prev;
@@ -919,14 +919,14 @@ class LinkedList {
 
 	}
 
-	public static Node intersectionOfTwoSortedNodes(Node headA, Node headB) {
+	public static NodeLL intersectionOfTwoSortedNodes(NodeLL headA, NodeLL headB) {
 		if (headA == null || headB == null) {
 			return null;
 		}
 
-		Node result = null;
+		NodeLL result = null;
 		if (headA.data == headB.data) {
-			result = new Node(headA.data);
+			result = new NodeLL(headA.data);
 			result.next = intersectionOfTwoSortedNodes(headA.next, headB.next);
 			return result;
 		} else if (headA.data < headB.data) {
@@ -936,9 +936,9 @@ class LinkedList {
 		}
 	}
 
-	public static Node deleteAlternateNodes(Node head) {
-		Node temp = head;
-		Node next = null;
+	public static NodeLL deleteAlternateNodes(NodeLL head) {
+		NodeLL temp = head;
+		NodeLL next = null;
 		while (temp != null && temp.next != null) {
 			next = temp.next.next;
 			temp.next = next;
@@ -948,12 +948,12 @@ class LinkedList {
 		return head;
 	}
 
-	void deleteAlt(Node head) {
+	void deleteAlt(NodeLL head) {
 		if (head == null)
 			return;
 
-		Node prev = head;
-		Node now = head.next;
+		NodeLL prev = head;
+		NodeLL now = head.next;
 
 		while (prev != null && now != null) {
 			/* Change next link of previus node */
@@ -969,7 +969,7 @@ class LinkedList {
 		}
 	}
 
-	public static Node deleteAlternateNodesRecursive(Node head) {
+	public static NodeLL deleteAlternateNodesRecursive(NodeLL head) {
 		if (head == null || head.next == null) {
 			return head;
 		}
@@ -981,16 +981,16 @@ class LinkedList {
 		return head;
 	}
 
-	public static void alternateSplit(Node head) {
-		Node dummyA = new Node(-5);
-		Node dummyB = new Node(-4);
+	public static void alternateSplit(NodeLL head) {
+		NodeLL dummyA = new NodeLL(-5);
+		NodeLL dummyB = new NodeLL(-4);
 
-		Node a = dummyA;
-		Node b = dummyB;
+		NodeLL a = dummyA;
+		NodeLL b = dummyB;
 
-		Node current = head;
+		NodeLL current = head;
 		while (current != null) {
-			Node next = current.next;
+			NodeLL next = current.next;
 
 			a.next = current;
 			a = a.next;
@@ -1019,7 +1019,7 @@ class LinkedList {
 
 	}
 
-	public static boolean isIdenticalLinkedLists(Node headA, Node headB) {
+	public static boolean isIdenticalLinkedLists(NodeLL headA, NodeLL headB) {
 		if (headA == null && headB == null) {
 			return true;
 		}
@@ -1032,12 +1032,12 @@ class LinkedList {
 		return false;
 	}
 
-	public static Node deleteNodesGreaterValueOnRightSide(Node head) {
+	public static NodeLL deleteNodesGreaterValueOnRightSide(NodeLL head) {
 
-		Node curr = head;
-		Node prev = null;
+		NodeLL curr = head;
+		NodeLL prev = null;
 
-		Node result = null;
+		NodeLL result = null;
 		while (curr != null && curr.next != null) {
 
 			if (curr.data < curr.next.data) {
@@ -1060,14 +1060,14 @@ class LinkedList {
 
 	}
 
-	public static Node segregateEvenAndOddNodes(Node head) {
+	public static NodeLL segregateEvenAndOddNodes(NodeLL head) {
 
-		Node temp = head;
-		Node dummyNodeEven = new Node(-5);
-		Node dummyNodeOdd = new Node(-10);
-		Node evenLeft = dummyNodeEven;
-		Node oddRight = dummyNodeOdd;
-		Node next = null;
+		NodeLL temp = head;
+		NodeLL dummyNodeEven = new NodeLL(-5);
+		NodeLL dummyNodeOdd = new NodeLL(-10);
+		NodeLL evenLeft = dummyNodeEven;
+		NodeLL oddRight = dummyNodeOdd;
+		NodeLL next = null;
 
 		while (temp != null) {
 			next = temp.next;
@@ -1082,7 +1082,7 @@ class LinkedList {
 			temp = next;
 		}
 
-		Node result = null;
+		NodeLL result = null;
 		if (dummyNodeEven.next != null) {
 			result = dummyNodeEven.next;
 			evenLeft.next = dummyNodeOdd.next;
@@ -1093,14 +1093,14 @@ class LinkedList {
 		return result;
 	}
 
-	private static boolean isEven(Node lastNode) {
+	private static boolean isEven(NodeLL lastNode) {
 		return lastNode.data % 2 == 0;
 	}
 
-	private static Node rotateByKNodes(int k, Node head) {
+	private static NodeLL rotateByKNodes(int k, NodeLL head) {
 		int count = k;
-		Node tail = getTail(head);
-		Node next = null;
+		NodeLL tail = getTail(head);
+		NodeLL next = null;
 		while (count != 0) {
 			tail.next = head;
 			tail = tail.next;
@@ -1116,19 +1116,35 @@ class LinkedList {
 	public static void main(String[] args) {
 
 		LinkedList list = new LinkedList();
-		list.push(14);
-		list.push(12);
-		list.push(10);
-		list.push(8);
-		list.push(6);
+		// list.push(7);
+		// list.push(6);
+		// list.push(5);
 		list.push(4);
+		list.push(3);
 		list.push(2);
+		list.push(1);
 		list.printList();
-		System.out.println();
-		System.out.println("LinkedList.main() after creating balanced bst");
-		NodeBST nodeBST = list.sortedLinkedListToBalancedBSTWithouthChangeLL();
 
-		BST.inorderTraversal(nodeBST);
+		list.rearrangeLinkedList();
+		System.out.println();
+		System.out.println("LinkedList.main() after rearranging");
+		list.printList();
+
+		// LinkedList list = new LinkedList();
+		// list.push(14);
+		// list.push(12);
+		// list.push(10);
+		// list.push(8);
+		// list.push(6);
+		// list.push(4);
+		// list.push(2);
+		// list.printList();
+		// System.out.println();
+		// System.out.println("LinkedList.main() after creating balanced bst");
+		// NodeBST nodeBST =
+		// list.sortedLinkedListToBalancedBSTWithouthChangeLL();
+		//
+		// BST.inorderTraversal(nodeBST);
 
 		// list.printListWithPointers();
 		//
@@ -1527,15 +1543,15 @@ class LinkedList {
 
 	}
 
-	public static Node deleteMiddleLineSegments(Node head) {
+	public static NodeLL deleteMiddleLineSegments(NodeLL head) {
 
 		if (head == null || head.next == null || head.next.next == null) {
 			return head;
 		}
 
-		Node temp = head;
-		Node next = temp.next;
-		Node nextNext = temp.next.next;
+		NodeLL temp = head;
+		NodeLL next = temp.next;
+		NodeLL nextNext = temp.next.next;
 
 		if (isHorizontalLine(temp, next) && isHorizontalLine(temp, nextNext)) {
 			temp.next = nextNext;
@@ -1554,19 +1570,19 @@ class LinkedList {
 		return head;
 	}
 
-	private static boolean isHorizontalLine(Node temp, Node next) {
+	private static boolean isHorizontalLine(NodeLL temp, NodeLL next) {
 		return temp.y == next.y;
 	}
 
-	private static boolean isVerticalLine(Node temp, Node next) {
+	private static boolean isVerticalLine(NodeLL temp, NodeLL next) {
 		return temp.x == next.x;
 	}
 
-	public Node cloneNextAndRandomPointerList(Node head) {
+	public NodeLL cloneNextAndRandomPointerList(NodeLL head) {
 
-		Node temp = head;
-		HashMap<Integer, Node> map = new HashMap<>();
-		Node newHead = null, tail = null;
+		NodeLL temp = head;
+		HashMap<Integer, NodeLL> map = new HashMap<>();
+		NodeLL newHead = null, tail = null;
 		while (temp != null) {
 			if (newHead == null) {
 				newHead = prepareIfNotInMap(map, temp);
@@ -1581,30 +1597,30 @@ class LinkedList {
 		return newHead;
 	}
 
-	private Node prepareIfNotInMap(HashMap<Integer, Node> map, Node node) {
+	private NodeLL prepareIfNotInMap(HashMap<Integer, NodeLL> map, NodeLL node) {
 		if (node == null) {
 			return null;
 		}
 		if (map.containsKey(node.data)) {
 			return map.get(node.data);
 		}
-		Node newNode = new Node(node.data);
+		NodeLL newNode = new NodeLL(node.data);
 		map.put(newNode.data, newNode);
 		newNode.random = prepareIfNotInMap(map, node.random);
 		newNode.next = prepareIfNotInMap(map, node.next);
 		return newNode;
 	}
 
-	private static Node insertionSortP(Node head) {
+	private static NodeLL insertionSortP(NodeLL head) {
 
 		if (head == null || head.next == null) {
 			return head;
 		}
-		Node sortedList = null;
-		Node temp = head;
+		NodeLL sortedList = null;
+		NodeLL temp = head;
 
 		while (temp != null) {
-			Node next = temp.next;
+			NodeLL next = temp.next;
 			temp.next = null;
 			sortedList = sortedInsert(sortedList, temp);
 			temp = next;
@@ -1613,13 +1629,13 @@ class LinkedList {
 		return sortedList;
 	}
 
-	private static Node sortedInsert(Node sortedList, Node addedNode) {
+	private static NodeLL sortedInsert(NodeLL sortedList, NodeLL addedNode) {
 		if (sortedList == null) {
 			return addedNode;
 		}
 
-		Node prev = null;
-		Node current = sortedList;
+		NodeLL prev = null;
+		NodeLL current = sortedList;
 		while (current != null && current.data < addedNode.data) {
 			prev = current;
 			current = current.next;
@@ -1629,25 +1645,25 @@ class LinkedList {
 			addedNode.next = sortedList;
 			return addedNode;
 		}
-		Node prevNext = prev.next;
+		NodeLL prevNext = prev.next;
 		prev.next = addedNode;
 		addedNode.next = prevNext;
 		return sortedList;
 	}
 
-	private static Node cloneNextAndRandomPointerUsingConstantExtraSpace(Node head) {
+	private static NodeLL cloneNextAndRandomPointerUsingConstantExtraSpace(NodeLL head) {
 
 		if (head == null) {
 			return null;
 		}
-		Node temp = head;
-		Node resultHead = null;
-		Node resultTemp = null;
+		NodeLL temp = head;
+		NodeLL resultHead = null;
+		NodeLL resultTemp = null;
 
 		// create copy and insert elements in between as state above in algo
 		while (temp != null) {
-			Node newNode = new Node(temp.data);
-			Node tempNext = temp.next;
+			NodeLL newNode = new NodeLL(temp.data);
+			NodeLL tempNext = temp.next;
 			temp.next = newNode;
 			newNode.next = tempNext;
 			temp = tempNext;
@@ -1666,7 +1682,7 @@ class LinkedList {
 		// now make the cloned list detached from the original one
 		temp = head;
 		while (temp != null) {
-			Node tempNextNext = temp.next.next;
+			NodeLL tempNextNext = temp.next.next;
 			if (resultHead == null) {
 				resultHead = temp.next;
 				resultTemp = resultHead;
@@ -1683,27 +1699,27 @@ class LinkedList {
 		return resultHead;
 	}
 
-	private static Node insertionSort(Node head) {
-		Node item = head;
+	private static NodeLL insertionSort(NodeLL head) {
+		NodeLL item = head;
 
-		Node dummy = new Node(-1);
+		NodeLL dummy = new NodeLL(-1);
 
-		Node prevItem = item;
+		NodeLL prevItem = item;
 		dummy.next = item;
 
 		item = item.next;
 
 		while (item != null) {
 
-			Node next = item.next;
+			NodeLL next = item.next;
 			boolean isShifted = false;
 
-			Node prevSort = dummy;
-			Node tempSort = dummy.next;
+			NodeLL prevSort = dummy;
+			NodeLL tempSort = dummy.next;
 
 			while (tempSort.data != item.data) {
 				if (item.data < tempSort.data) {
-					Node prevSortNext = prevSort.next;
+					NodeLL prevSortNext = prevSort.next;
 					prevSort.next = item;
 					item.next = prevSortNext;
 					prevItem.next = next;
@@ -1723,15 +1739,15 @@ class LinkedList {
 		return dummy.next;
 	}
 
-	private static Node pointRandomPointerInLinkedList(Node head) {
-		Node temp = head;
+	private static NodeLL pointRandomPointerInLinkedList(NodeLL head) {
+		NodeLL temp = head;
 		while (temp != null) {
-			Node nextGreater = temp.next;
+			NodeLL nextGreater = temp.next;
 			if (nextGreater == null) {
 				nextGreater = head;
 			}
 			while (nextGreater.data != temp.data && nextGreater.data < temp.data) {
-				Node nextNext = nextGreater.next;
+				NodeLL nextNext = nextGreater.next;
 				if (nextNext == null) {
 					nextGreater = head;
 				} else {
@@ -1748,26 +1764,81 @@ class LinkedList {
 		return head;
 	}
 
-	private NodeBST sortedLinkedListToBalancedBSTWithouthChangeLL() {
+	private Node sortedLinkedListToBalancedBSTWithouthChangeLL() {
 		int count = LinkedList.getCount(head);
 		return sortedLinkedListToBalancedBSTOptimized(0, count - 1);
 	}
 
 	// http://www.crazyforcode.com/convert-sorted-list-balanced-bst/
-	private NodeBST sortedLinkedListToBalancedBSTOptimized(int start, int end) {
+	private Node sortedLinkedListToBalancedBSTOptimized(int start, int end) {
 		if (start > end) {
 			return null;
 		}
 
 		int mid = (start + end) / 2;
-		NodeBST nodeLeft = sortedLinkedListToBalancedBSTOptimized(start, mid - 1);
+		Node nodeLeft = sortedLinkedListToBalancedBSTOptimized(start, mid - 1);
 
-		NodeBST root = new NodeBST(head.data);
+		Node root = new Node(head.data);
 		root.left = nodeLeft;
 		head = head.next;
 
 		root.right = sortedLinkedListToBalancedBSTOptimized((mid + 1), end);
 		return root;
 	}
+
+	public NodeLL rearrangeLinkedList() {
+		tempHead = head;
+		if (tempHead == null || tempHead.next == null || tempHead.next.next == null) {
+			return tempHead;
+		}
+		return rearrangeLinkedList(tempHead);
+	}
+
+	NodeLL tempHead = null;;
+
+	public NodeLL rearrangeLinkedList(NodeLL current) {
+
+		if (current.next == null) {
+			return current;
+		}
+
+		NodeLL list = rearrangeLinkedList(current.next);
+		if (tempHead == null || tempHead.next == null || tempHead.next.next == null) {
+			return null;
+		}
+		NodeLL next = tempHead.next;
+		current.next = null;
+		tempHead.next = list;
+		tempHead.next.next = next;
+
+		tempHead = tempHead.next.next;
+		return current;
+	}
+
+	// /**
+	// * using fast and slow pointer algo and then reverse second hallf and put
+	// in
+	// * middle of elements
+	// *
+	// * @return
+	// */
+	// public Node rearrangeLinkedList() {
+	//
+	// Node temp = head;
+	// Node middle = getMiddle(head);
+	// Node temp2 = middle.next;
+	// middle.next = null;
+	// temp2 = reverseLinkedList(temp2);
+	//
+	// while (temp2 != null) {
+	// Node next = temp.next;
+	// temp.next = temp2;
+	// temp2 = temp2.next;
+	// temp.next.next = next;
+	// temp = temp.next.next;
+	// }
+	//
+	// return head;
+	// }
 
 }
