@@ -1,6 +1,8 @@
 package com.test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -18,8 +20,58 @@ public class TestSort {
 
 	public static void main(String[] args) {
 
-		
-		
+		getPositionOfRightMostSetBit(19);
+		// int a[] = { -2, -3, 4, 1, -2, -1, 5, -3 };
+		// maxSumSubArray(a);
+
+		// System.out.println("Number fo bits : " + countNumberOfBits1(100));
+		// System.out.println("Number fo bits : " + countNumberOfBits2(100));
+		// System.out.println("Number fo bits : " +
+		// countNumberOfBits3Lookup(100));
+		// int arr[] = { 7, 3, 3, 5, 4, 6, 2 };
+		// findRepeatingAndMissingUsingXor(arr);
+
+		// int ar1[] = { 10 };
+		// int ar2[] = { 2, 3 };
+
+		// int ar1[] = {2};
+		// int ar2[] = {3, 10};
+		//
+		// int ar1[] = { 1, 5, 9, 10, 15, 20 };
+		// int ar2[] = { 2, 3, 8, 13 };
+		// int ar1[] = { 1, 2, 3, 5, 8, 9 };
+		// int ar2[] = { 10, 13, 15, 20 };
+		// printArray(ar1);
+		// printArray(ar2);
+
+		// System.out.println("after merging ");
+		// mergeTwoSortedArraysO1ExtraSpace(ar1, ar2);
+
+		// int arr1[] = new int[] { 0, 0, 0 };
+		// int arr2[] = new int[] { 1, 1, 1 };
+
+		// int arr1[] = { 0, 1, 0, 0, 0, 0, 0, 1 };
+		// int arr2[] = { 1, 0, 1, 0, 0, 1, 0, 0 };
+		// longestSpanWithSameSumInTwoBinaryArraysPractise(arr1, arr2);
+		// longestSameSumSpanTwoBinaryArray(arr1, arr2);
+		// longestSameSumSpanTwoBinaryArray(arr1, arr2);
+		// int[] arr = { 2, 6, 8, 9, 15, 20, 25, 5, 4, 3, 1 };
+		// printArray(arr);
+		// System.out.println();
+		// System.out.println("TestSort.main()" +
+		// getElementFromFirstIncreasingAndThenDecreasingArray(arr, 2));
+		// String str = "IIDDD";
+
+		// formMinimumNumberFromAGivenSequence("IDID");
+		// formMinimumNumberFromAGivenSequence("I");
+		// formMinimumNumberFromAGivenSequence("DD");
+		// formMinimumNumberFromAGivenSequence("II");
+		// formMinimumNumberFromAGivenSequence("DIDI");
+		// formMinimumNumberFromAGivenSequence("IIDDD");
+		// formMinimumNumberFromAGivenSequence("DDIDDIID");
+
+		// formMinimumNumberFromAGivenSequenceGFG(str);
+
 		// int arr[][] = { { 1, 2, 32, 46 }, { 4, 5, 15, 18, 20 }, { 3 }, { 6, 8
 		// } };
 		// print2DArray(arr);
@@ -1726,9 +1778,10 @@ public class TestSort {
 	}
 
 	private static int binarySearch(int[] arr, int item, int low, int high) {
-		if (high <= low) {
+		if (high < low) {
 			return -1;
 		}
+
 		int middle = (low + high) / 2;
 		if (arr[middle] == item) {
 			return middle;
@@ -1893,6 +1946,389 @@ public class TestSort {
 				System.out.print(i + " ");
 			System.out.println();
 		}
+	}
+
+	private static void formMinimumNumberFromAGivenSequence(String str) {
+		char[] seq = str.toCharArray();
+		int[] num = new int[seq.length + 1];
+		Stack<Integer> stackD = new Stack<>();
+		ArrayList<Integer> listI = new ArrayList<>();
+		int maxTaken = 0;
+		for (int i = 0; i < seq.length; i++) {
+
+			if (seq[i] == 'D') {
+				stackD.push(i + 1);
+
+			} else {
+				maxTaken = putValuesForIAndD(stackD, listI, num, maxTaken);
+
+				listI.add(i + 1);
+			}
+		}
+
+		maxTaken = putValuesForIAndD(stackD, listI, num, maxTaken);
+
+		printArray(num);
+
+	}
+
+	private static int putValuesForIAndD(Stack<Integer> stack, ArrayList<Integer> listI, int num[], int maxTaken) {
+
+		if (listI.contains(1)) {
+			num[0] = ++maxTaken;
+		}
+		while (!stack.isEmpty()) {
+			int index = stack.pop();
+			num[index] = ++maxTaken;
+			if (index == 1) {
+				num[0] = ++maxTaken;
+			}
+		}
+
+		for (Integer integer : listI) {
+			num[integer] = ++maxTaken;
+		}
+		listI.clear();
+		return maxTaken;
+	}
+
+	private static void formMinimumNumberFromAGivenSequenceGFG(String str) {
+		char[] seq = str.toCharArray();
+		Stack<Integer> stack = new Stack<>();
+		String result = "";
+		for (int i = 0; i <= seq.length; i++) {
+			stack.push(i + 1);
+
+			if (i == seq.length || seq[i] == 'I') {
+
+				while (!stack.isEmpty()) {
+					result += stack.pop();
+					result += " ";
+				}
+			}
+		}
+
+		System.out.println("TestSort.formMinimumNumberFromAGivenSequenceGFG()" + result);
+	}
+
+	private static int getElementFromFirstIncreasingAndThenDecreasingArray(int[] arr, int element) {
+		int index = getMaxFromFirstIncreasingThenDecreasing(arr, 0, arr.length - 1);
+		if (index == -1) {
+			System.out.println("TestSort.getElementFromFirstIncreasingAndThenDecreasingArray() wrong input");
+			return -1;
+		}
+		int elementIndex = binarySearch(arr, element, 0, index);
+		if (elementIndex != -1) {
+			return elementIndex;
+		}
+		int elementIndex2 = binarySearchIncreasing(arr, element, index + 1, arr.length - 1);
+		return elementIndex2;
+	}
+
+	private static int binarySearchIncreasing(int[] arr, int item, int low, int high) {
+		if (high < low) {
+			return -1;
+		}
+		int middle = (low + high) / 2;
+		if (arr[middle] == item) {
+			return middle;
+		}
+
+		if (arr[middle] < item) {
+			return binarySearchIncreasing(arr, item, low, middle - 1);
+		}
+		return binarySearchIncreasing(arr, item, middle + 1, high);
+	}
+
+	/**
+	 * monotonically means doing the same thing again and again increasing means
+	 * always increase but can contains duplicate values monotonically strictly
+	 * increasing means always increase but can't contain duplicate values
+	 * 
+	 * @param arr
+	 * @param low
+	 * @param high
+	 * @return
+	 */
+	private static int getMaxFromFirstIncreasingThenDecreasing(int[] arr, int low, int high) {
+		while (low < high) {
+			int middle = (low + high) / 2;
+			if (arr[middle - 1] < arr[middle] && arr[middle + 1] < arr[middle]) {
+				return middle;
+			}
+
+			if (arr[middle - 1] < arr[middle] && arr[middle + 1] > arr[middle]) {
+				low = middle + 1;
+			}
+
+			else if (arr[middle - 1] > arr[middle] && arr[middle + 1] < arr[middle]) {
+				high = middle - 1;
+			} else {
+				return -1;
+			}
+
+		}
+
+		return -1;
+
+	}
+
+	public static void longestSameSumSpanTwoBinaryArray(int[] arr1, int[] arr2) {
+		if (arr1.length != arr2.length) {
+			System.out.println("this method is for arryas of same size");
+		}
+		int n = arr1.length;
+		int maxLength = 0;
+		int leftSpanIndex = 0;
+		int rightSpanIndex = 0;
+		// we can also use map instead of diffArray
+		int[] diffArray = new int[2 * n + 1];
+		for (int i = 0; i < diffArray.length; i++) {
+			diffArray[i] = -1;
+		}
+		int preSum1 = 0;
+		int preSum2 = 0;
+
+		for (int i = 0; i < n; i++) {
+			preSum1 += arr1[i];
+			preSum2 += arr2[i];
+
+			int currDiff = preSum1 - preSum2;
+			int diffIndex = n + currDiff;
+
+			if (currDiff == 0) {
+				leftSpanIndex = 0;
+				rightSpanIndex = i;
+				maxLength = i + 1;
+			}
+
+			if (diffArray[diffIndex] == -1) {
+				diffArray[diffIndex] = i;
+			} else {
+				int len = i - diffArray[diffIndex];
+
+				leftSpanIndex = diffArray[diffIndex] + 1;
+				rightSpanIndex = i;
+
+				if (len > maxLength) {
+					maxLength = len;
+				}
+			}
+
+		}
+		System.out.println("maxlength " + maxLength);
+		System.out.println("left span " + leftSpanIndex + " rightspan " + rightSpanIndex);
+	}
+
+	public static void mergeTwoSortedArraysO1ExtraSpace(int arr1[], int arr2[]) {
+		int length1 = arr1.length;
+		int length2 = arr2.length;
+
+		int i2 = length2 - 1;
+		while (i2 >= 0) {
+			int i1 = length1 - 2;
+			int item = arr1[length1 - 1];
+			while (i1 >= 0) {
+				if (arr1[i1] < arr2[i2]) {
+					break;
+				}
+				arr1[i1 + 1] = arr1[i1];
+				i1--;
+			}
+			if (arr1[i1 + 1] > arr2[i2]) {
+				arr1[i1 + 1] = arr2[i2];
+				arr2[i2] = item;
+			}
+			i2--;
+		}
+
+		printArray(arr1);
+		printArray(arr2);
+	}
+
+	public static void longestSpanWithSameSumInTwoBinaryArraysPractise(int[] arr1, int[] arr2) {
+		if (arr1.length != arr2.length) {
+			System.out.println("Two arrays should have same length");
+			return;
+		}
+		int maxLen = 0;
+		int low = 0;
+		int high = 0;
+		HashMap<Integer, Integer> map = new HashMap<>();
+		int length = arr1.length;
+		int prefixSum1 = 0;
+		int prefixSum2 = 0;
+
+		for (int i = 0; i < length; i++) {
+			prefixSum1 += arr1[i];
+			prefixSum2 += arr2[i];
+
+			int diff = prefixSum1 - prefixSum2;
+			if (diff == 0 && maxLen < i + 1) {
+				maxLen = i + 1;
+				low = 0;
+				high = i;
+			} else if (map.containsKey(diff)) {
+				int len = i - map.get(diff);
+				if (len > maxLen) {
+					maxLen = len;
+					low = map.get(diff) + 1;
+					high = i;
+				}
+
+			} else {
+				map.put(diff, i);
+			}
+
+		}
+
+		System.out.println("maxlength " + maxLen + " low index : " + low + " high index : " + high);
+	}
+
+	public static void findRepeatedAndMissing(int[] arr) {
+		int temp[] = new int[arr.length];
+		for (int i = 0; i < arr.length; i++) {
+			if (temp[arr[i] - 1] != 0) {
+				System.out.println("repeating is " + arr[i]);
+			} else {
+				temp[arr[i] - 1] = 1;
+			}
+		}
+
+		for (int i = 0; i < temp.length; i++) {
+			if (temp[i] == 0) {
+				System.out.println("missing is " + (i + 1));
+			}
+		}
+
+	}
+
+	public static void findRepeatingAndMissingUsingXor(int[] arr) {
+		int length = arr.length;
+		int set_bit_no;
+
+		int xor1 = arr[0];
+
+		for (int i = 1; i < arr.length; i++) {
+			xor1 ^= arr[i];
+		}
+		for (int i = 1; i <= length; i++) {
+			xor1 ^= i;
+		}
+
+		set_bit_no = xor1 & ~(xor1 - 1);
+
+		// /*
+		// * Now divide elements in two sets by comparing rightmost set bit of
+		// * xor1 with bit at same position in each element. Also, get XORs of
+		// two
+		// * sets. The two XORs are the output elements. The following two for
+		// * loops serve the purpose
+		// */
+		int i, x = 0, y = 0;
+		for (i = 0; i < length; i++) {
+			if ((arr[i] & set_bit_no) == 0)
+				x = x ^ arr[i]; /* arr[i] belongs to first set */
+			else
+				y = y ^ arr[i]; /* arr[i] belongs to second set */
+		}
+		for (i = 1; i <= length; i++) {
+			if ((i & set_bit_no) == 0)
+				x = x ^ i; /* i belongs to first set */
+			else
+				y = y ^ i; /* i belongs to second set */
+		}
+
+		System.out.println("  x : " + x + " y : " + y);
+	}
+
+	public static int countNumberOfBits1(int number) {
+		int count = 0;
+		while (number != 0) {
+
+			count += number & 1;
+			number = number >> 1;
+		}
+		return count;
+	}
+
+	public static int countNumberOfBits2(int number) {
+		int count = 0;
+		while (number != 0) {
+			number = number & (number - 1);
+			count++;
+		}
+		return count;
+	}
+
+	public static int countNumberOfBits3Lookup(int number) {
+		int[] lookup = new int[16];
+		for (int i = 0; i < lookup.length; i++) {
+			lookup[i] = countNumberOfBits1(i);
+		}
+
+		int count = 0;
+		for (; number > 0; number = number >> 4) {
+			count += lookup[number & 0xF];
+		}
+
+		return count;
+	}
+
+	/**
+	 * here it is also handling for all negative numbers including index count
+	 * 
+	 * @param arr
+	 */
+	public static void maxSumSubArray(int[] arr) {
+		int maxSoFar = arr[0];
+		int s = 0, start = 0, end = 0;
+
+		int maxEndingHere = arr[0];
+		for (int i = 1; i < arr.length; i++) {
+			maxEndingHere += arr[i];
+
+			if (maxEndingHere < arr[i]) {
+				maxEndingHere = arr[i];
+				s = i;
+			}
+
+			if (maxEndingHere > maxSoFar) {
+				start = s;
+				end = i;
+				maxSoFar = maxEndingHere;
+			}
+		}
+
+		System.out.println("start : " + start + " end : " + end + " maxSoFar : " + maxSoFar);
+	}
+
+	public static void maxSumSubArrayHandledAllNegative(int[] a) {
+		int max_so_far = a[0];
+		int curr_max = a[0];
+
+		for (int i = 1; i < a.length; i++) {
+			System.out.println("start iteration " + i);
+			System.out.println("a[i] " + a[i]);
+			System.out.println("curr max before" + curr_max);
+			curr_max = getMax(a[i], curr_max + a[i]);
+			System.out.println("curr max after" + curr_max);
+			System.out.println("max so far before" + max_so_far);
+			max_so_far = getMax(max_so_far, curr_max);
+			System.out.println("max so far after" + max_so_far);
+			System.out.println("end iteration " + i);
+		}
+		System.out.println("max so far final" + max_so_far);
+	}
+
+	public static void getPositionOfRightMostSetBit(int number) {
+		// logic for set only the rightmost set bit and toggle other by using
+		// bitwise or of number and 2scomplement
+		// also number&~(number-1) also give rightmost set bit and other unset
+		// used in repeating and missing character
+		// as per comment one more (n&(n-1))^n also give rightmost set bit in
+		// this question comment
+		System.out.println("Position of RightMost Set Bit : " + ((int) Math.log(number & -number) + 1));
 	}
 
 }

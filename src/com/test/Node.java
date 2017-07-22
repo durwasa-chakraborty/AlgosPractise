@@ -4,6 +4,8 @@ public class Node implements PrintableNode {
 
 	int data;
 	Node left, right;
+	int horizontalDistance;
+	int level;
 
 	public Node(int key) {
 		this.data = key;
