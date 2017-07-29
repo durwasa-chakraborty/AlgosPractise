@@ -18,22 +18,56 @@ public class MinHeap {
 	}
 
 	public static void main(String[] args) {
+		MinHeap heap = new MinHeap();
+		heap.insert(5);
+		heap.insert(3);
+		heap.insert(17);
+		heap.insert(10);
+		heap.insert(84);
+		heap.insert(19);
+		heap.insert(6);
+		heap.insert(22);
+		heap.insert(9);
+		printArray(heap.heap);
+		System.out.println("Extract min : " + heap.extractMin());
+		printArray(heap.heap);
+
+		System.out.println("Extract min : " + heap.extractMin());
+		printArray(heap.heap);
 
 	}
 
-	private int extractMin() {
-		return 0;
+	private void buildHeap() {
+		for (int i = 0; i < size / 2; i++) {
+			minHeapify(heap, size, i);
+		}
+	}
+
+	public void print() {
+		for (int i = 0; i <= size / 2; i++) {
+			System.out.print(" PARENT : " + heap[i] + " LEFT CHILD : " + ((2 * i + 1 >= size) ? -1 : heap[2 * i + 1])
+					+ " RIGHT CHILD :" + ((2 * i + 2 >= size ? -1 : heap[2 * i + 2])));
+			System.out.println();
+		}
+	}
+
+	public int extractMin() {
+		int min = heap[0];
+		heap[0] = heap[--size];
+		heap[size] = 0;
+		minHeapify(heap, size, 0);
+		return min;
 
 	}
 
-	private void insert(int key) {
-		if (size + 1 > capacity) {
+	public void insert(int key) {
+		if (size == capacity) {
 			System.out.println("MinHeap.insert() No space to insert in heap");
 			return;
 		}
-		heap[++size] = key;
+		heap[size++] = key;
 
-		int current = size;
+		int current = size - 1;
 		while (heap[current] < heap[parent(current)]) {
 			swap(heap, current, parent(current));
 			current = parent(current);
@@ -80,6 +114,14 @@ public class MinHeap {
 		for (int i = 0; i < arr.length; i++) {
 			System.out.print(arr[i] + " ");
 		}
+	}
+
+	public int getCount() {
+		return size;
+	}
+
+	public int getMin() {
+		return heap[0];
 	}
 
 }

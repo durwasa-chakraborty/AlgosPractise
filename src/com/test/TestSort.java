@@ -20,7 +20,36 @@ public class TestSort {
 
 	public static void main(String[] args) {
 
-		getPositionOfRightMostSetBit(19);
+		printMedianForRunningStream();
+		// int ar1[] = { 1, 4, 5, 7 };
+		// int ar2[] = { 10, 20, 30, 40 };
+
+		// int ar1[] = { 1, 4, 5, 7 };
+		// int ar2[] = { 10, 20, 30, 40 };
+		// closestPairFromTwoSortedArrays(ar1, ar2, 50);
+
+		// int[] arr = new int[] { 1, 2, 3, 4, 7, -8, 6, 9 };
+		// System.out.println("Max Diff : " + maxDiffGFG(arr, arr.length));
+
+		// int[] arr = new int[] { 2, 6, 3, 12, 56, 8 };
+		// // printKLargestElementInArray(arr, arr.length);
+		// printKLargestUsingMinHeap(arr, 2);
+
+		// System.out.println("Before : ");
+		// printArray(arr);
+		//
+		// arr = sortANearlyorKSortedArray(arr, 3);
+		// System.out.println("AFter : ");
+		// printArray(arr);
+		// System.out.println("getFirstPositiveForMonotonicFunction() : " +
+		// getFirstPositiveForMonotonicFunction());
+		// int arr[] = { 4, 3, 1, 14, 16, 40 };
+		// System.out.println("Peak element : " + findLocalMinimaElement(arr, 0,
+		// arr.length - 1));
+		// int[] arr = { 1, 2, 2, 2, 2, 3, 4, 4, 5, 6, 6 };
+		// numberOfOccurencesInSortedArray(arr, 1);
+		// numberOfBitsFlipped(7, 10);
+		// getPositionOfRightMostSetBit(19);
 		// int a[] = { -2, -3, 4, 1, -2, -1, 5, -3 };
 		// maxSumSubArray(a);
 
@@ -382,7 +411,6 @@ public class TestSort {
 	private static void selectionSort(int[] arr) {
 		int index;
 		for (int i = 0; i < arr.length - 1; i++) {
-			index = i;
 			index = i;
 			for (int j = i + 1; j < arr.length; j++) {
 				if (arr[j] < arr[index]) {
@@ -1345,6 +1373,23 @@ public class TestSort {
 	 */
 	private static int getMedian(int arr[], int n) {
 		mergeSort(arr, 0, arr.length - 1);
+		return arr[n / 2];
+	}
+
+	private static int getMedianForEvenAndOdd(int arr[], int n) {
+		printArray(arr);
+		System.out.println();
+		if (n == 1) {
+			return arr[0];
+		}
+
+		if (n == 2) {
+			return (arr[0] + arr[1]) / 2;
+		}
+		mergeSort(arr, 0, n - 1);
+		if (n % 2 == 0) {
+			return (arr[n / 2 - 1] + arr[n / 2]) / 2;
+		}
 		return arr[n / 2];
 	}
 
@@ -2329,6 +2374,369 @@ public class TestSort {
 		// as per comment one more (n&(n-1))^n also give rightmost set bit in
 		// this question comment
 		System.out.println("Position of RightMost Set Bit : " + ((int) Math.log(number & -number) + 1));
+	}
+
+	public static void numberOfBitsFlipped(int a, int b) {
+		int xor = a ^ b;
+		System.out.println("Number of bit needed to flipped : " + countNumberOfBits1(xor));
+	}
+
+	public static void numberOfOccurencesInSortedArray(int[] arr, int number) {
+		int first = first(arr, number, 0, arr.length - 1);
+		int last = last(arr, number, 0, arr.length - 1);
+		System.out.println("TestSort.numberOfOccurencesInSortedArray() start : " + first + " end : " + last);
+		System.out.println("number of occurences in sorted array : " + (last - first + 1));
+	}
+
+	private static int last(int[] arr, int number, int start, int end) {
+		if (end < start) {
+			return -1;
+		}
+		int middle = (start + end) / 2;
+
+		if (arr[middle] == number && (middle + 1 <= end) && arr[middle + 1] != number) {
+			return middle;
+		}
+		if (arr[middle] == number && (middle + 1 == end) && arr[middle + 1] == number) {
+			return end;
+		}
+		if (arr[middle] == number) {
+			return last(arr, number, middle + 1, end);
+		}
+		if (number > arr[middle]) {
+			return last(arr, number, middle + 1, end);
+		}
+		return last(arr, number, start, middle - 1);
+
+	}
+
+	private static int first(int[] arr, int number, int start, int end) {
+		if (end < start) {
+			return -1;
+		}
+
+		int middle = (start + end) / 2;
+		if (arr[middle] == number && start == middle) {
+			return start;
+		}
+		if (arr[middle] == number && (middle - 1 >= start) && arr[middle - 1] != number) {
+			return middle;
+		}
+		if (arr[middle] == number && (middle - 1 == start) && arr[middle - 1] == number) {
+			return start;
+		}
+		if (number > arr[middle]) {
+			return first(arr, number, middle + 1, end);
+		}
+
+		return first(arr, number, start, middle - 1);
+	}
+
+	public static int findPeakElement(int[] arr, int start, int end) {
+		int middle = (start + end) / 2;
+
+		if (middle == 0 && arr[middle] > arr[middle + 1]) {
+			return middle;
+		}
+
+		if (middle == arr.length - 1 && arr[middle - 1] < arr[middle]) {
+			return middle;
+		}
+
+		if (arr[middle - 1] < arr[middle] && arr[middle + 1] < arr[middle]) {
+			return middle;
+		}
+
+		if (arr[middle - 1] > arr[middle]) {
+			return findPeakElement(arr, start, middle - 1);
+		}
+
+		else {
+			return findPeakElement(arr, middle + 1, end);
+		}
+
+	}
+
+	public static int findLocalMinimaElement(int[] arr, int start, int end) {
+		int middle = (start + end) / 2;
+
+		if (middle == 0 && arr[middle] < arr[middle + 1]) {
+			return middle;
+		}
+
+		if (middle == arr.length - 1 && arr[middle - 1] > arr[middle]) {
+			return middle;
+		}
+
+		if (arr[middle - 1] > arr[middle] && arr[middle + 1] > arr[middle]) {
+			return middle;
+		}
+
+		if (arr[middle - 1] < arr[middle]) {
+			return findPeakElement(arr, start, middle - 1);
+		}
+
+		else {
+			return findPeakElement(arr, middle + 1, end);
+		}
+
+	}
+
+	// Let's take an example function as f(x) = x^2 - 10*x - 20
+	// Note that f(x) can be any monotonocally increasing function
+	private static int f(int x) {
+		return (x * x - 10 * x - 20);
+	}
+
+	private static int getFirstPositiveForMonotonicFunction() {
+		if (f(0) >= 0) {
+			return 0;
+		}
+
+		int i = 1;
+		while (f(i) < 0) {
+			i = i * 2;
+		}
+
+		return binarySearchForFindFirstPositiveInFuncf(i / 2, i);
+	}
+
+	private static int binarySearchForFindFirstPositiveInFuncf(int low, int high) {
+		if (high >= low) {
+
+			int mid = (low + high) / 2;
+			// TODO HERE IN GFG there is also check for if (f(mid) > 0 &&
+			// (low==mid || f(mid - 1) <= 0)) but I can't able to get why this
+			// check was there
+			if (f(mid) > 0 && f(mid - 1) <= 0) {
+				return mid;
+			}
+
+			if (f(mid) >= 0) {
+				return binarySearchForFindFirstPositiveInFuncf(low, mid - 1);
+			}
+
+			return binarySearchForFindFirstPositiveInFuncf(mid + 1, high);
+		}
+		return -1;
+	}
+
+	public static int[] sortANearlyorKSortedArray(int[] arr, int k) {
+
+		int i = 0;
+		int[] aux = new int[k + 1];
+
+		// put first k+1 elements
+		for (int j = 0; j < aux.length; j++) {
+			aux[j] = arr[j];
+		}
+
+		// build heap this is must as to first needed to build a heap and then
+		// do operations over that
+		for (int j = aux.length / 2 - 1; j >= 0; j--) {
+			minHeapify(arr, aux.length, j);
+		}
+
+		// so put how many elements gone in aux
+		i = aux.length - 1;
+
+		// j here to put elements from starting after getting min
+		int j = 0;
+		while (j < arr.length) {
+			minHeapify(aux, aux.length, 0);
+			// put first element i.e. min element
+			arr[j] = aux[0];
+
+			// update both i and j
+			j++;
+			i++;
+
+			if (i < arr.length) {
+				aux[0] = arr[i];
+			} else {
+				// put max as every element is min from this so that no
+				// confusion is there for size
+				aux[0] = Integer.MAX_VALUE;
+			}
+		}
+
+		return arr;
+	}
+
+	public static void printKLargestElementInArray(int[] arr, int k) {
+		int[] print = new int[k];
+		System.out.println("before");
+		printArray(arr);
+
+		int size = arr.length;
+
+		// build heap
+		for (int i = size / 2 - 1; i >= 0; i--) {
+			maxHeapify(arr, size, i);
+		}
+		for (int i = 0; i < print.length; i++) {
+			maxHeapify(arr, arr.length, 0);
+			print[i] = arr[0];
+			arr[0] = Integer.MIN_VALUE;
+		}
+		System.out.println();
+		System.out.print("after:");
+		printArray(print);
+	}
+
+	public static void printKLargestUsingMinHeap(int[] arr, int k) {
+		int[] result = new int[k];
+
+		for (int i = 0; i < result.length; i++) {
+			result[i] = arr[i];
+		}
+
+		// BUILD HEAP
+		for (int i = result.length / 2 - 1; i < result.length; i++) {
+			minHeapify(result, result.length, i);
+		}
+
+		for (int i = k; i < arr.length; i++) {
+			if (arr[i] > result[0]) {
+				result[0] = arr[i];
+				minHeapify(result, result.length, 0);
+			}
+		}
+
+		printArray(arr);
+		printArray(result);
+
+	}
+
+	// http://www.geeksforgeeks.org/maximum-difference-between-two-elements/
+	public static int maxDiffBetweenTwoElements(int[] arr) {
+		int minSoFar = arr[0];
+		int maxDiff = arr[1] - arr[0];
+
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] - minSoFar > maxDiff) {
+				maxDiff = arr[i] - minSoFar;
+			}
+
+			if (minSoFar > arr[i]) {
+				minSoFar = arr[i];
+			}
+		}
+
+		return maxDiff;
+	}
+
+	/**
+	 * Need to discuss what is logic behind this
+	 * 
+	 * @param arr
+	 * @param n
+	 * @return
+	 */
+	static int maxDiffGFG(int arr[], int n) {
+		// Create a diff array of size n-1. The array will hold
+		// the difference of adjacent elements
+		int diff[] = new int[n - 1];
+		for (int i = 0; i < n - 1; i++)
+			diff[i] = arr[i + 1] - arr[i];
+
+		// Now find the maximum sum subarray in diff array
+		int max_diff = diff[0];
+		for (int i = 1; i < n - 1; i++) {
+			if (diff[i - 1] > 0)
+				diff[i] += diff[i - 1];
+			if (max_diff < diff[i])
+				max_diff = diff[i];
+		}
+		return max_diff;
+	}
+
+	public static void closestPairFromTwoSortedArrays(int[] arr1, int[] arr2, int x) {
+		int closestPair = 0;
+		int i = 0, j = arr2.length - 1;
+		while (i < arr1.length && j > 0) {
+			int value = arr1[i] + arr2[j];
+			if (value <= x && value > closestPair) {
+				closestPair = value;
+			}
+			if (value > x) {
+				j--;
+			} else {
+				i++;
+			}
+		}
+
+		System.out.println("Closest Pair : " + closestPair);
+	}
+
+	public static void printMedianForRunningStream() {
+		int[] arr = new int[] { 5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4 };
+		MaxHeap leftMaxHeap = new MaxHeap(arr.length);
+		MinHeap rightMinHeap = new MinHeap(arr.length);
+
+		int median = 0;
+		for (int i = 0; i < arr.length; i++) {
+			median = getMedianForRunningStream(arr[i], median, leftMaxHeap, rightMinHeap);
+			int originalMedian = getMedianForEvenAndOdd(Arrays.copyOfRange(arr, 0, i + 1), i + 1);
+			System.out.println("median upto i  original : " + i + " is " + originalMedian);
+			System.out.println("median upto i : " + i + " is " + median);
+
+			if (originalMedian != median) {
+				System.out.println("bug in median at i : " + i);
+			}
+
+		}
+
+	}
+
+	private static int getMedianForRunningStream(int element, int median, MaxHeap leftMaxHeap, MinHeap rightMinHeap) {
+		int sign = getSignum(leftMaxHeap.getCount(), rightMinHeap.getCount());
+		switch (sign) {
+
+		case -1:
+			if (element < median) {
+				leftMaxHeap.insert(element);
+			} else {
+				leftMaxHeap.insert(rightMinHeap.extractMin());
+				rightMinHeap.insert(element);
+			}
+			break;
+
+		case 0:
+			if (element < median) {
+				leftMaxHeap.insert(element);
+			} else {
+				rightMinHeap.insert(element);
+			}
+			break;
+
+		case 1:
+			if (element < median) {
+				rightMinHeap.insert(leftMaxHeap.extractMax());
+				leftMaxHeap.insert(element);
+			} else {
+				rightMinHeap.insert(element);
+			}
+			break;
+
+		}
+		sign = getSignum(leftMaxHeap.getCount(), rightMinHeap.getCount());
+		switch (sign) {
+		case 1:
+			return leftMaxHeap.getMax();
+		case 0:
+			return (leftMaxHeap.getMax() + rightMinHeap.getMin()) / 2;
+		default:
+			return rightMinHeap.getMin();
+
+		}
+	}
+
+	private static int getSignum(int a, int b) {
+		if (a == b) {
+			return 0;
+		}
+		return a > b ? 1 : -1;
 	}
 
 }
