@@ -1,11 +1,13 @@
 package com.test;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 import java.util.TreeMap;
 
 public class BST {
@@ -15,20 +17,38 @@ public class BST {
 
 		BST tree = new BST();
 
-		tree.insertInBSTPractise(new Node(9));
-		tree.insertInBSTPractise(new Node(2));
-		tree.insertInBSTPractise(new Node(1));
-		tree.insertInBSTPractise(new Node(4));
-		tree.insertInBSTPractise(new Node(8));
+		tree.root = new Node(1);
+		tree.root.left = new Node(2);
+		tree.root.right = new Node(3);
 
-		tree.insertInBSTPractise(new Node(10));
-		tree.insertInBSTPractise(new Node(11));
-		tree.insertInBSTPractise(new Node(12));
-//		tree.insertInBSTPractise(new Node(13));
-//		tree.insertInBSTPractise(new Node(55));
+		tree.root.left.left = new Node(4);
+		tree.root.left.right = new Node(5);
+		tree.root.right.right = new Node(6);
+		tree.root.left.left.left = new Node(7);
+		tree.root.left.left.right = new Node(8);
+		// tree.root.right.right.left = new Node(9);
+		tree.root.right.right.right = new Node(10);
 
 		TreePrinter.print(tree.root);
-		System.out.println("check bst practise " + checkBSTPractise(tree.root));
+
+		printMaximumLevelSumBinaryTree(tree.root);
+		printMaximumLevelSumBinaryTreeQueue(tree.root);
+
+		//
+		// levelOrderTraversalSpiralFormONOptimizedDeque(tree.root);
+		// levelOrderTraversalSpiralForm(tree.root);
+
+		// extractLeavesOfBinaryTree(tree.root);
+		// printLikeDoublyLinkedList(head);
+		// System.out.println();
+		// System.out.println("AFter extraction");
+		// TreePrinter.print(tree.root);
+
+		// printBottomViewPractise(tree.root);
+		// levelOrderTraversalPractise(tree.root);
+		// printLeftViewPractise(tree.root);
+		// System.out.println("check bst practise " +
+		// checkBSTPractise(tree.root));
 
 		// tree.root = new Node(1);
 		// tree.root.left = new Node(2);
@@ -664,5 +684,339 @@ public class BST {
 			}
 		}
 
+	}
+
+	public static int heightOfBTPractise(Node root, int height) {
+		if (root == null) {
+			return height;
+		}
+		int heightL = heightOfBTPractise(root.left, height + 1);
+		int heightR = heightOfBTPractise(root.right, height + 1);
+
+		return heightL > heightR ? heightL : heightR;
+	}
+
+	public static void levelOrderTraversalPractise(Node root) {
+		int height = heightOfBTPractise(root, 0);
+
+		for (int i = 1; i <= height; i++) {
+			printAGivenLevelPractise(root, i);
+			System.out.println();
+		}
+
+	}
+
+	private static void printAGivenLevelPractise(Node root, int level) {
+		if (root == null) {
+			return;
+		}
+
+		if (level == 1) {
+			System.out.print(" " + root.data);
+			return;
+		}
+
+		printAGivenLevel(root.left, level - 1);
+		printAGivenLevel(root.right, level - 1);
+	}
+
+	public static void printLeftViewPractise(Node root) {
+		int height = heightOfBTPractise(root, 0);
+
+		for (int i = 1; i <= height; i++) {
+			printLeftOneForALevel(root, i);
+			System.out.println();
+		}
+
+	}
+
+	private static boolean printLeftOneForALevel(Node root, int level) {
+		if (root == null) {
+			return false;
+		}
+
+		if (level == 1) {
+			System.out.print(" " + root.data);
+			return true;
+		}
+
+		boolean isLeft = printLeftOneForALevel(root.left, level - 1);
+		if (isLeft) {
+			return true;
+		}
+		return printLeftOneForALevel(root.right, level - 1);
+	}
+
+	private static void printBottomViewPractise(Node root) {
+		TreeMap<Integer, Integer> map = new TreeMap<>();
+		int height = heightOfBTPractise(root, 0);
+		for (int i = 1; i <= height; i++) {
+			printBottomViewPractise(root, 0, map, i);
+		}
+		printMap(map);
+	}
+
+	private static void printBottomViewPractise(Node root, int vLine, Map<Integer, Integer> map, int level) {
+		if (root == null) {
+			return;
+		}
+		if (level == 1) {
+			map.put(vLine, root.data);
+			return;
+		}
+		printBottomViewPractise(root.left, vLine - 1, map, level - 1);
+		printBottomViewPractise(root.right, vLine + 1, map, level - 1);
+	}
+
+	private static Node head;
+	private static Node dll;
+
+	private static boolean extractLeavesOfBinaryTree(Node root) {
+		if (root == null) {
+			return false;
+		}
+
+		if (root.left == null && root.right == null) {
+			return true;
+		}
+
+		boolean isLeafNode = extractLeavesOfBinaryTree(root.left);
+		if (isLeafNode) {
+			if (dll == null) {
+				dll = root.left;
+				head = dll;
+			} else {
+				dll.right = root.left;
+				dll.right.left = dll;
+				dll = dll.right;
+			}
+			root.left = null;
+		}
+
+		isLeafNode = extractLeavesOfBinaryTree(root.right);
+		if (isLeafNode) {
+			if (dll == null) {
+				dll = root.right;
+				head = dll;
+			} else {
+				dll.right = root.right;
+				dll.right.left = dll;
+				dll = dll.right;
+			}
+			root.right = null;
+		}
+
+		return false;
+	}
+
+	public static void printLikeDoublyLinkedList(Node head) {
+		if (head == null) {
+			System.out.println("DoubleLinkedList.print() empty");
+			return;
+		}
+		Node tnode = head;
+		while (tnode != null) {
+			System.out.println(tnode.data + " " + "prev is : " + (tnode.left == null ? null : tnode.left.data));
+			tnode = tnode.right;
+		}
+	}
+
+	public static void levelOrderTraversalSpiralForm(Node root) {
+		int height = heightOfBinaryTree(root);
+		for (int i = 1; i <= height; i++) {
+			if (i % 2 == 0) {
+				printAGivenLevelLeft(root, i);
+			} else {
+				printAGivenLevelRight(root, i);
+			}
+			System.out.println();
+		}
+	}
+
+	private static void printAGivenLevelRight(Node root, int level) {
+		if (root == null) {
+			return;
+		}
+		if (level == 1) {
+			System.out.print(" " + root.data);
+			return;
+		}
+
+		printAGivenLevelRight(root.right, level - 1);
+		printAGivenLevelRight(root.left, level - 1);
+	}
+
+	private static void printAGivenLevelLeft(Node root, int level) {
+		if (root == null) {
+			return;
+		}
+		if (level == 1) {
+			System.out.print(" " + root.data);
+			return;
+		}
+
+		printAGivenLevelLeft(root.left, level - 1);
+		printAGivenLevelLeft(root.right, level - 1);
+	}
+
+	private static void levelOrderTraversalSpiralFormONOptimized(Node root) {
+		Stack<Node> s1 = new Stack<>();
+		Stack<Node> s2 = new Stack<>();
+		s1.push(root);
+
+		while (!s1.isEmpty() || !s2.isEmpty()) {
+
+			while (!s1.isEmpty()) {
+				Node item = s1.pop();
+				System.out.print(" " + item.data);
+				if (item.right != null) {
+					s2.push(item.right);
+				}
+
+				if (item.left != null) {
+					s2.push(item.left);
+				}
+			}
+
+			while (!s2.isEmpty()) {
+				Node item = s2.pop();
+				System.out.print(" " + item.data);
+
+				if (item.left != null) {
+					s1.push(item.left);
+				}
+				if (item.right != null) {
+					s1.push(item.right);
+				}
+			}
+
+		}
+	}
+
+	private static void levelOrderTraversalSpiralFormONOptimizedDeque(Node root) {
+		Deque<Node> dequeue = new java.util.LinkedList<>();
+		dequeue.addFirst(root);
+		boolean isReverseLevel = true;
+		while (!dequeue.isEmpty()) {
+
+			int count = dequeue.size();
+			while (count > 0) {
+				if (isReverseLevel) {
+					Node node = dequeue.removeLast();
+					System.out.print(" " + node.data);
+
+					if (node.right != null) {
+						dequeue.addFirst(node.right);
+					}
+
+					if (node.left != null) {
+						dequeue.addFirst(node.left);
+					}
+
+				} else {
+					Node node = dequeue.removeFirst();
+					System.out.print(" " + node.data);
+
+					if (node.left != null) {
+						dequeue.addLast(node.left);
+					}
+
+					if (node.right != null) {
+						dequeue.addLast(node.right);
+					}
+				}
+
+				count--;
+			}
+			isReverseLevel = !isReverseLevel;
+		}
+	}
+
+	public static void printMaximumLevelSumBinaryTreeQueue(Node root) {
+		if (root == null) {
+			System.out.println("empty tree");
+			return;
+		}
+
+		Queue<Node> queue = new java.util.LinkedList<>();
+		root.level = 1;
+		queue.add(root);
+		int max = Integer.MIN_VALUE, level = -1;
+		while (!queue.isEmpty()) {
+			int count = queue.size();
+			int sum = 0;
+			int currLevel = 0;
+			while (count-- != 0) {
+				Node node = queue.remove();
+				sum += node.data;
+				currLevel = node.level;
+				if (node.left != null) {
+					node.left.level = node.level + 1;
+					queue.add(node.left);
+				}
+
+				if (node.right != null) {
+					node.right.level = node.level + 1;
+					queue.add(node.right);
+				}
+			}
+
+			if (sum > max) {
+				max = sum;
+				level = currLevel;
+			}
+		}
+
+		System.out.println(" Max Sum is : " + max + " level is : " + level);
+	}
+
+	public static void printMaximumLevelSumBinaryTree(Node root) {
+		if (root == null) {
+			System.out.println("empty tree");
+			return;
+		}
+
+		int height = heightOfBinaryTreeTest(root);
+
+		int sum, max = Integer.MIN_VALUE, level = -1;
+
+		for (int i = 1; i <= height; i++) {
+			sum = getSumAtLevel(root, i);
+			if (sum > max) {
+				max = sum;
+				level = i;
+			}
+
+		}
+
+		System.out.println(" Max Sum is : " + max + " level is : " + level);
+	}
+
+	private static int getSumAtLevel(Node root, int level) {
+		if (root == null) {
+			return 0;
+		}
+
+		if (level == 1) {
+			return root.data;
+		}
+		int sum = 0;
+		sum += getSumAtLevel(root.left, level - 1);
+		sum += getSumAtLevel(root.right, level - 1);
+		return sum;
+	}
+
+	public static int heightOfBinaryTreeTest(Node root) {
+
+		if (root == null) {
+			return 0;
+		}
+
+		int heightLeft = heightOfBinaryTree(root.left);
+		int heightRight = heightOfBinaryTree(root.right);
+		if (heightLeft > heightRight) {
+			return heightLeft + 1;
+		}
+		return heightRight + 1;
 	}
 }

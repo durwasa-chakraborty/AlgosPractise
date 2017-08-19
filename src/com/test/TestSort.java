@@ -2,8 +2,10 @@ package com.test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.Stack;
@@ -20,7 +22,45 @@ public class TestSort {
 
 	public static void main(String[] args) {
 
-		printMedianForRunningStream();
+		PetrolPump[] arr = { new PetrolPump(6, 4), new PetrolPump(3, 6), new PetrolPump(7, 3) };
+		firstCircularTourthatVisitAllPetrolPumpsGFGOptimized(arr);
+		// int arrChocolate[] = { 12, 4, 7, 9, 2, 23, 25, 41, 30, 40, 28, 42,
+		// 30, 44, 48, 43, 50 };
+		// int student = 7;
+		// choclateDistributionProblem(arrChocolate, student);
+
+		// int arr[] = { 10, 22, 9, 33, 21, 50, 41, 60 };
+		// lisDpGFG(arr);
+		// longestIncreasingSubsequenceSimple(arr);
+		//
+		// int set[] = { 1, 2, 3, 4, 5 };
+		// int sum = 10;
+		// System.out.println("is Subset sum Dp : " + isSubsetSumDp(set,
+		// set.length, sum));
+		// System.out.println("isSubsetSum : " + isSubsetSum(set, set.length,
+		// sum));
+		// System.out.println("isSubsetSum : " +
+		// isSubsetSumDynamicProgramming(set, set.length, sum));
+
+		// int[] arr = new int[] { -2, -3, 4, -1, -2, 1, 5, -3 };
+		// maximumSumSubArrayContiguous(arr);
+
+		// int arr[] = { 1, 2, 3, 1, 4, 5, 2, 3, 6 };
+		// int arr[] = { 2, 5, -1, 7, -3, -1, -2 };
+		// int arr[] = { 2, 5, -1, 7, -3, -1, -2 };
+		// printArray(arr);
+		// System.out.println();
+		// sumofMinMaxOfAllSubarraysOfSizeKSimple(arr, arr.length, 3);
+		// sumofMinMaxOfAllSubarraysOfSizeKDequeue(arr, 3);
+		// maximumOfAllSubarraysOfSizeKSimple(arr, arr.length, 3);
+		// System.out.println();
+		// maximumOfAllSubarraysOfSizeKDequeue(arr, 3);
+
+		// char[] charArray = { '[', '(', ']', ')' };
+		// System.out.println("Check for Balanced paranthesis : " +
+		// checkForBalancedParenthesis(charArray));
+
+		// printMedianForRunningStream();
 		// int ar1[] = { 1, 4, 5, 7 };
 		// int ar2[] = { 10, 20, 30, 40 };
 
@@ -2739,4 +2779,473 @@ public class TestSort {
 		return a > b ? 1 : -1;
 	}
 
+	public static boolean checkForBalancedParenthesis(char[] charArray) {
+		Stack<Character> stack = new Stack<>();
+		for (int i = 0; i < charArray.length; i++) {
+			switch (charArray[i]) {
+			case '{':
+			case '[':
+			case '(':
+				stack.push(charArray[i]);
+				break;
+			case '}':
+				if (!stack.isEmpty() && stack.peek() == '{') {
+					stack.pop();
+				} else {
+					return false;
+				}
+				break;
+			case ']':
+				if (!stack.isEmpty() && stack.peek() == '[') {
+					stack.pop();
+				} else {
+					return false;
+				}
+				break;
+			case ')':
+
+				if (!stack.isEmpty() && stack.peek() == '(') {
+					stack.pop();
+				} else {
+					return false;
+				}
+				break;
+			default:
+				return false;
+			}
+		}
+		return true;
+	}
+
+	static void maximumOfAllSubarraysOfSizeKSimple(int arr[], int n, int k) {
+		int max;
+		for (int i = 0; i <= n - k; i++) {
+			max = i;
+
+			for (int j = 1; j < k; j++) {
+				if (arr[i + j] > arr[max]) {
+					max = i + j;
+				}
+			}
+
+			System.out.print(arr[max] + " ");
+		}
+	}
+
+	static void sumofMinMaxOfAllSubarraysOfSizeKSimple(int arr[], int n, int k) {
+		int max, min;
+		for (int i = 0; i <= n - k; i++) {
+			max = i;
+			min = i;
+
+			for (int j = 1; j < k; j++) {
+				if (arr[i + j] > arr[max]) {
+					max = i + j;
+				}
+
+				if (arr[i + j] < arr[min]) {
+					min = i + j;
+				}
+			}
+
+			System.out.print((arr[max] + arr[min]) + " ");
+		}
+	}
+
+	static void sumofMinMaxOfAllSubarraysOfSizeKDequeue(int[] arr, int k) {
+		System.out.println();
+		Deque<Integer> dequeueMax = new LinkedList<>();
+		Deque<Integer> dequeueMin = new LinkedList<>();
+		int n = arr.length;
+
+		int i = 0;
+
+		for (; i < k; i++) {
+			while (!dequeueMax.isEmpty() && arr[dequeueMax.getLast()] <= arr[i]) {
+				dequeueMax.removeLast();
+			}
+
+			while (!dequeueMin.isEmpty() && arr[dequeueMin.getLast()] >= arr[i]) {
+				dequeueMin.removeLast();
+			}
+
+			dequeueMax.addLast(i);
+			dequeueMin.addLast(i);
+		}
+
+		for (; i < n; i++) {
+			System.out.println("min : " + arr[dequeueMin.peekFirst()] + " max : " + arr[dequeueMax.peekFirst()]
+					+ " sum : " + (arr[dequeueMin.peekFirst()] + arr[dequeueMax.peekFirst()]));
+
+			while (!dequeueMax.isEmpty() && dequeueMax.peekFirst() <= i - k) {
+				dequeueMax.removeFirst();
+			}
+
+			while (!dequeueMin.isEmpty() && dequeueMin.peekFirst() <= i - k) {
+				dequeueMin.removeFirst();
+			}
+
+			while (!dequeueMax.isEmpty() && arr[dequeueMax.getLast()] <= arr[i]) {
+				dequeueMax.removeLast();
+			}
+
+			while (!dequeueMin.isEmpty() && arr[dequeueMin.getLast()] >= arr[i]) {
+				dequeueMin.removeLast();
+			}
+
+			dequeueMax.addLast(i);
+			dequeueMin.addLast(i);
+		}
+
+		System.out.println("min : " + arr[dequeueMin.peekFirst()] + " max : " + arr[dequeueMax.peekFirst()] + " sum : "
+				+ (arr[dequeueMin.peekFirst()] + arr[dequeueMax.peekFirst()]));
+	}
+
+	/**
+	 * actual logic behind this is if previous element smaller than current then
+	 * previous element is of no use because we want max in window if next
+	 * element is greater then it is also going to be max in next window
+	 * 
+	 * @param arr
+	 * @param k
+	 */
+	private static void maximumOfAllSubarraysOfSizeKDequeue(int[] arr, int k) {
+
+		Deque<Integer> Qi = new LinkedList<Integer>();
+
+		/* Process first k (or first window) elements of array */
+		int i;
+		for (i = 0; i < k; ++i) {
+			// For every element, the previous smaller elements are useless so
+			// remove them from Qi
+			while (!Qi.isEmpty() && arr[i] >= arr[Qi.peekLast()])
+				Qi.removeLast(); // Remove from rear
+
+			// Add new element at rear of queue
+			Qi.addLast(i);
+		}
+
+		for (; i < arr.length; i++) {
+			System.out.print(arr[Qi.peek()] + " ");
+
+			// remove all elements out of window
+			while (!Qi.isEmpty() && Qi.peekFirst() <= i - k) {
+				Qi.removeFirst();
+			}
+
+			while (!Qi.isEmpty() && arr[i] >= arr[Qi.peekLast()])
+				Qi.removeLast(); // Remove from rear
+
+			Qi.addLast(i);
+
+		}
+
+		// print for last window
+		System.out.print(arr[Qi.peek()] + " ");
+	}
+
+	public static void maximumSumSubArrayContiguous(int[] arr) {
+
+		int sum = 0;
+		int max = arr[0];
+		int s = 0, start = 0, end = 0;
+		for (int i = 1; i < arr.length; i++) {
+			sum += arr[i];
+			if (sum < arr[i]) {
+				sum = arr[i];
+				s = i;
+
+			}
+			if (sum > max) {
+				max = sum;
+				start = s;
+				end = i;
+			}
+		}
+
+		System.out.println("maximum sum subarray : " + max + " start : " + start + " end : " + end);
+	}
+
+	/**
+	 * This is a NP-Complete problem as this has non deterministic polynomial
+	 * time for solution means we can't able to determine the time for this
+	 * solution
+	 * 
+	 * @param arr
+	 * @param n
+	 * @param sum
+	 * @return
+	 */
+	public static boolean isSubsetSum(int[] arr, int n, int sum) {
+		if (sum == 0) {
+			return true;
+		}
+
+		if (n == 0 && sum != 0) {
+			return false;
+		}
+
+		return isSubsetSum(arr, n - 1, sum - arr[n - 1]) || isSubsetSum(arr, n - 1, sum);
+	}
+
+	public static boolean isSubsetSumDp(int[] arr, int n, int sum) {
+		boolean[][] dp = new boolean[n + 1][sum + 1];
+
+		for (int i = 0; i < dp.length; i++) {
+			dp[i][0] = true;
+		}
+
+		// If sum is not 0 and set is empty, then answer is false
+		for (int i = 1; i <= sum; i++)
+			dp[0][i] = false;
+
+		for (int i = 1; i < dp.length; i++) {
+			for (int j = 1; j < dp[i].length; j++) {
+				if (j < arr[i - 1]) {
+					dp[i][j] = dp[i - 1][j];
+				} else {
+					dp[i][j] = dp[i - 1][j] || dp[i - 1][j - arr[i - 1]];
+				}
+			}
+		}
+
+		printSubsetSum(dp, arr, new ArrayList<Integer>(), n - 1, sum);
+
+		return dp[n][sum];
+	}
+
+	private static void printSubsetSum(boolean[][] dp, int[] arr, ArrayList<Integer> displayList, int i, int sum) {
+
+		if (i < 0) {
+			return;
+		}
+
+		if (i == 0 && sum != 0 && dp[1][sum]) {
+			displayList.add(arr[0]);
+			printArrayList(displayList);
+			return;
+		}
+
+		if (i == 0 && sum == 0) {
+			printArrayList(displayList);
+			return;
+		}
+
+		if (dp[i][sum]) {
+			printSubsetSum(dp, arr, new ArrayList<Integer>(displayList), i - 1, sum);
+		}
+
+		if (sum >= arr[i] && dp[i][sum - arr[i]]) {
+			displayList.add(arr[i]);
+			printSubsetSum(dp, arr, displayList, i - 1, sum - arr[i]);
+
+		}
+
+	}
+
+	private static void printArrayList(ArrayList<Integer> displayList) {
+		for (int i = 0; i < displayList.size(); i++) {
+			System.out.print(" " + displayList.get(i));
+		}
+		System.out.println();
+	}
+
+	public static void longestIncreasingSubsequenceSimple(int[] arr) {
+
+		int maxIncreasingSubsequence = 1;
+		for (int i = 0; i < arr.length; i++) {
+			int tempSequence = 1;
+			int lastIncreasing = arr[i];
+			for (int j = i + 1; j < arr.length; j++) {
+				if (arr[j] > lastIncreasing) {
+					tempSequence++;
+					lastIncreasing = arr[j];
+				}
+			}
+			if (tempSequence > maxIncreasingSubsequence) {
+				maxIncreasingSubsequence = tempSequence;
+			}
+		}
+
+		System.out.println("TestSort.longestIncreasingSubsequence() : " + maxIncreasingSubsequence);
+	}
+
+	static HashMap<Integer, Integer> mapRes = new HashMap<>();
+
+	public static int longestIncreasingSubsequenceRecursiveMapDp(int[] arr, int length) {
+
+		if (length == 1) {
+			return 1;
+		}
+
+		if (mapRes.get(length) != null) {
+			return mapRes.get(length);
+		}
+
+		int res, maxEndingSoFar = 0;
+		for (int i = 1; i < length; i++) {
+			res = longestIncreasingSubsequenceRecursive(arr, i);
+			if (arr[i - 1] < arr[length - 1] && res + 1 > maxEndingSoFar) {
+				maxEndingSoFar = res + 1;
+			}
+		}
+
+		if (maxEndingSoFar > maxLis) {
+			maxLis = maxEndingSoFar;
+		}
+
+		mapRes.put(length, maxEndingSoFar);
+		return maxEndingSoFar;
+	}
+
+	public static int longestIncreasingSubsequenceRecursive(int[] arr, int length) {
+
+		if (length == 1) {
+			return 1;
+		}
+
+		int res, maxEndingSoFar = 1;
+		for (int i = 1; i < length; i++) {
+			res = longestIncreasingSubsequenceRecursive(arr, i);
+			if (arr[i - 1] < arr[length - 1] && res + 1 > maxEndingSoFar) {
+				maxEndingSoFar = res + 1;
+			}
+		}
+
+		if (maxEndingSoFar > maxLis) {
+			maxLis = maxEndingSoFar;
+		}
+
+		return maxEndingSoFar;
+	}
+
+	static int maxLis = 1;
+
+	public static void lisRecursive(int[] arr) {
+
+		maxLis = 1;
+		longestIncreasingSubsequenceRecursive(arr, arr.length);
+		System.out.println("Max Lis Using Recursive  : " + maxLis);
+	}
+
+	public static void lisRecursiveMapDp(int[] arr) {
+
+		maxLis = 1;
+		System.currentTimeMillis();
+		longestIncreasingSubsequenceRecursiveMapDp(arr, arr.length);
+		System.out.println("Max Lis Using Recursive map dp  : " + maxLis);
+	}
+
+	public static void lisDpGFG(int[] arr) {
+		int length = arr.length;
+		int[] lis = new int[length];
+
+		for (int i = 0; i < lis.length; i++) {
+			lis[i] = 1;
+		}
+
+		for (int i = 1; i < length; i++) {
+			for (int j = 0; j < i; j++) {
+				if (arr[i] > arr[j] && lis[i] < lis[j] + 1) {
+					lis[i] = lis[j] + 1;
+				}
+			}
+		}
+
+		int max = 0;
+		for (int i = 0; i < lis.length; i++) {
+			if (max < lis[i]) {
+				max = lis[i];
+			}
+		}
+
+		System.out.println("Max lis : " + max);
+	}
+
+	// TODO
+	// http://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
+	public void longestSubsequenceGFGnlogn(int arr[]) {
+
+	}
+
+	public static void choclateDistributionProblem(int[] arrChocolate, int student) {
+		mergeSort(arrChocolate, 0, arrChocolate.length - 1);
+		printArray(arrChocolate);
+		int min = 0, tempMin, start = 0;
+
+		min = arrChocolate[student - 1] - arrChocolate[0];
+
+		for (int i = 1; i <= arrChocolate.length - student; i++) {
+			tempMin = arrChocolate[i + student - 1] - arrChocolate[i];
+			if (tempMin < min) {
+				min = tempMin;
+				start = i;
+			}
+		}
+
+		System.out.println();
+		for (int i = start; i < start + student; i++) {
+			System.out.print(arrChocolate[i] + " ");
+		}
+	}
+
+	static class PetrolPump {
+		public PetrolPump(int petrol, int nextDist) {
+			this.petrolAvailable = petrol;
+			this.nextPetrolPumpDistance = nextDist;
+		}
+
+		int petrolAvailable;
+		int nextPetrolPumpDistance;
+	}
+
+	public static void firstCircularTourthatVisitAllPetrolPumps(PetrolPump[] arr) {
+		int n = arr.length;
+		int solution = -1;
+		for (int i = 0; i < n; i++) {
+			int j, currPetrol = arr[i].petrolAvailable - arr[i].nextPetrolPumpDistance;
+			for (j = (i + 1) % n; j != i; j = (j + 1) % n) {
+				if (currPetrol < 0) {
+					break;
+				}
+				currPetrol += arr[j].petrolAvailable - arr[j].nextPetrolPumpDistance;
+			}
+			if (j == i) {
+				solution = i;
+				break;
+			}
+
+		}
+
+		if (solution == -1) {
+			System.out.println("No solution found");
+		} else {
+			System.out.println("Solution is : " + solution);
+		}
+
+	}
+
+	public static void firstCircularTourthatVisitAllPetrolPumpsGFGOptimized(PetrolPump[] arr) {
+		int start = 0, end = 1;
+		int n = arr.length;
+		int currPetrol = arr[start].petrolAvailable - arr[start].nextPetrolPumpDistance;
+
+		while (start != end || currPetrol < 0) {
+
+			while (start != end && currPetrol < 0) {
+				currPetrol -= (arr[start].petrolAvailable - arr[start].nextPetrolPumpDistance);
+				start = (start + 1) % n;
+
+				if (start == 0) {
+					System.out.println("No solution ");
+					return;
+				}
+			}
+
+			currPetrol += arr[end].petrolAvailable - arr[end].nextPetrolPumpDistance;
+			end = (end + 1) % n;
+		}
+
+		System.out.println("solution for GFG: " + start);
+	}
 }
