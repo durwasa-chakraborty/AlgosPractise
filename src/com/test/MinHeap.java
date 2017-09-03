@@ -75,7 +75,7 @@ public class MinHeap {
 	}
 
 	private int parent(int pos) {
-		return pos / 2;
+		return (pos - 1) / 2;
 	}
 
 	private static void minHeapify(int[] arr, int size, int elementIndex) {
@@ -122,6 +122,11 @@ public class MinHeap {
 
 	public int getMin() {
 		return heap[0];
+	}
+
+	// TODO
+	public void decreaseKey(int index, int modifiedKeyValue) {
+
 	}
 
 }
