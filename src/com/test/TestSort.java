@@ -11,11 +11,6 @@ import java.util.Set;
 import java.util.Stack;
 
 /**
- * @author Reema
- *
- */
-/**
- * @author Reema
  *
  */
 public class TestSort {
@@ -2393,15 +2388,10 @@ public class TestSort {
 		int curr_max = a[0];
 
 		for (int i = 1; i < a.length; i++) {
-			System.out.println("start iteration " + i);
-			System.out.println("a[i] " + a[i]);
-			System.out.println("curr max before" + curr_max);
+
 			curr_max = getMax(a[i], curr_max + a[i]);
-			System.out.println("curr max after" + curr_max);
-			System.out.println("max so far before" + max_so_far);
+
 			max_so_far = getMax(max_so_far, curr_max);
-			System.out.println("max so far after" + max_so_far);
-			System.out.println("end iteration " + i);
 		}
 		System.out.println("max so far final" + max_so_far);
 	}

@@ -16,23 +16,92 @@ public class BST {
 	public static void main(String[] args) {
 
 		BST tree = new BST();
-
 		tree.root = new Node(1);
 		tree.root.left = new Node(2);
 		tree.root.right = new Node(3);
 
 		tree.root.left.left = new Node(4);
 		tree.root.left.right = new Node(5);
-		tree.root.right.right = new Node(6);
-		tree.root.left.left.left = new Node(7);
-		tree.root.left.left.right = new Node(8);
+		tree.root.right.left = new Node(6);
+		tree.root.right.right = new Node(7);
+
+		tree.root.left.left.left = new Node(8);
+		tree.root.left.left.right = new Node(9);
+		tree.root.left.right.left = new Node(10);
+		tree.root.left.right.right = new Node(11);
+		tree.root.right.left.left = new Node(12);
+		tree.root.right.left.right = new Node(13);
+		tree.root.right.right.left = new Node(14);
+		tree.root.right.right.right = new Node(15);
+
+		tree.root.left.left.left.left = new Node(16);
+		tree.root.left.left.left.right = new Node(17);
+		tree.root.left.left.right.left = new Node(18);
+		tree.root.left.left.right.right = new Node(19);
+		tree.root.left.right.left.left = new Node(20);
+		tree.root.left.right.left.right = new Node(21);
+		tree.root.left.right.right.left = new Node(22);
+		tree.root.left.right.right.right = new Node(23);
+		tree.root.right.left.left.left = new Node(24);
+		tree.root.right.left.left.right = new Node(25);
+		tree.root.right.left.right.left = new Node(26);
+		tree.root.right.left.right.right = new Node(27);
+		tree.root.right.right.left.left = new Node(28);
+		tree.root.right.right.left.right = new Node(29);
+		tree.root.right.right.right.left = new Node(30);
+		tree.root.right.right.right.right = new Node(31);
+
+		levelOrderTraversalPerfectBinaryTree(tree.root);
+
+		// BST tree = new BST();
+		// tree.root = new Node(1);
+		// tree.root.left = new Node(2);
+		// tree.root.right = new Node(3);
+		// tree.root.left.left = new Node(7);
+		// tree.root.left.right = new Node(6);
+		// tree.root.right.left = new Node(5);
+		// tree.root.right.right = new Node(4);
+		// System.out.println("Spiral order traversal of Binary Tree is ");
+		// levelOrderTraversalSpiralFormPractise(tree.root);
+
+		// BST tree = new BST();
+		// tree.root = new Node(1);
+		// tree.root.left = new Node(2);
+		// tree.root.right = new Node(3);
+		//
+		// tree.root.left.left = new Node(4);
+		// tree.root.left.right = new Node(5);
+		// tree.root.right.right = new Node(6);
+		// tree.root.left.left.left = new Node(7);
+		// tree.root.left.left.right = new Node(8);
 		// tree.root.right.right.left = new Node(9);
-		tree.root.right.right.right = new Node(10);
+		// tree.root.right.right.right = new Node(10);
+		// inorderTraversal(tree.root);
+		// System.out.println();
+		// tree.extractLeavesOfBinaryTreePractise(tree.root);
+		// checkPrevPointers(head);
+		//
+		// System.out.println();
+		// inorderTraversal(tree.root);
 
-		TreePrinter.print(tree.root);
-
-		printMaximumLevelSumBinaryTree(tree.root);
-		printMaximumLevelSumBinaryTreeQueue(tree.root);
+		// BST tree = new BST();
+		//
+		// tree.root = new Node(1);
+		// tree.root.left = new Node(2);
+		// tree.root.right = new Node(3);
+		//
+		// tree.root.left.left = new Node(4);
+		// tree.root.left.right = new Node(5);
+		// tree.root.right.right = new Node(6);
+		// tree.root.left.left.left = new Node(7);
+		// tree.root.left.left.right = new Node(8);
+		// // tree.root.right.right.left = new Node(9);
+		// tree.root.right.right.right = new Node(10);
+		//
+		// TreePrinter.print(tree.root);
+		//
+		// printMaximumLevelSumBinaryTree(tree.root);
+		// printMaximumLevelSumBinaryTreeQueue(tree.root);
 
 		//
 		// levelOrderTraversalSpiralFormONOptimizedDeque(tree.root);
@@ -1019,4 +1088,136 @@ public class BST {
 		}
 		return heightRight + 1;
 	}
+
+	Node currentElement = null;
+
+	public Node extractLeavesOfBinaryTreePractise(Node root) {
+
+		if (root == null) {
+			return null;
+		}
+
+		if (root.left == null && root.right == null) {
+			if (head == null) {
+				head = root;
+				currentElement = head;
+				currentElement.left = null;
+			} else {
+				currentElement.right = root;
+				root.left = currentElement;
+				currentElement = currentElement.right;
+
+			}
+			return null;
+		}
+		root.left = extractLeavesOfBinaryTreePractise(root.left);
+		root.right = extractLeavesOfBinaryTreePractise(root.right);
+		return root;
+	}
+
+	private static void checkPrevPointers(Node head) {
+		System.out.println("BST.checkPrevPointers()");
+		System.out.println();
+		System.out.print(head.data + " ");
+		while (head.right != null) {
+			head = head.right;
+			System.out.print(head.data + " ");
+		}
+
+		System.out.println("");
+		System.out.println("BST.checkPrevPointers() ");
+		while (head != null) {
+			System.out.print(head.data + " ");
+			head = head.left;
+		}
+	}
+
+	private static void levelOrderTraversalSpiralFormPractise(Node root) {
+		Node temp = root;
+		Deque<Node> deque = new java.util.LinkedList<Node>();
+		deque.addLast(temp);
+		boolean isReverseLevel = true;
+		while (!deque.isEmpty()) {
+
+			int size = deque.size();
+
+			while (size > 0) {
+				if (isReverseLevel) {
+					Node pollLast = deque.pollLast();
+					System.out.print(" " + pollLast.data);
+					if (pollLast.right != null) {
+						deque.addFirst(pollLast.right);
+					}
+					if (pollLast.left != null) {
+						deque.addFirst(pollLast.left);
+					}
+				} else {
+					Node pollFirst = deque.pollFirst();
+					System.out.print(" " + pollFirst.data);
+					if (pollFirst.left != null) {
+						deque.addLast(pollFirst.left);
+					}
+					if (pollFirst.right != null) {
+						deque.addLast(pollFirst.right);
+					}
+
+				}
+				size--;
+			}
+			isReverseLevel = !isReverseLevel;
+		}
+	}
+
+	private static void levelOrderTraversalPractise2(Node root) {
+		Queue<Node> queue = new java.util.LinkedList<>();
+		while (!queue.isEmpty()) {
+			Node poll = queue.poll();
+			System.out.print(" " + poll.data);
+
+			if (poll.left != null) {
+				queue.add(poll.left);
+			}
+
+			if (poll.right != null) {
+				queue.add(poll.right);
+			}
+
+		}
+
+	}
+
+	private static void levelOrderTraversalPerfectBinaryTree(Node root) {
+		Deque<Node> dequeue = new java.util.LinkedList<>();
+		dequeue.addFirst(root);
+		while (!dequeue.isEmpty()) {
+			int count = dequeue.size();
+			while (count > 0) {
+				Node nodeA = dequeue.poll();
+				Node nodeB = dequeue.poll();
+
+				System.out.print(" " + (nodeA != null ? nodeA.data : "") + " " + (nodeB != null ? nodeB.data : ""));
+
+				if (nodeA != null && nodeA.left != null) {
+					dequeue.addLast(nodeA.left);
+				}
+
+				if (nodeB != null && nodeB.right != null) {
+					dequeue.addLast(nodeB.right);
+				}
+
+				if (nodeA != null && nodeA.right != null) {
+					dequeue.addLast(nodeA.right);
+				}
+
+				if (nodeB != null && nodeB.left != null) {
+					dequeue.addLast(nodeB.left);
+				}
+
+				count -= 2;
+			}
+
+		}
+
+	}
+
 }
