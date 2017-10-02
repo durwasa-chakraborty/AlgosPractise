@@ -376,7 +376,8 @@ public class AmazonQuestions {
 			++C[arr[i] % 3];
 
 		// Return groups using the formula
-		return C[1] * C[2] + C[0] * (C[0] - 1) / 2 + C[0] * (C[0] - 1) * (C[0] - 2) / 6
+		return C[1] * C[2] + C[0] * (C[0] - 1) / 2 + 
+				C[0] * (C[0] - 1) * (C[0] - 2) / 6
 				+ C[1] * (C[1] - 1) * (C[1] - 2) / 6 + C[2] * (C[2] - 1) * (C[2] - 2) / 6 + C[0] * C[1] * C[2];
 	}
 

@@ -17,8 +17,13 @@ public class TestSort {
 
 	public static void main(String[] args) {
 
-		PetrolPump[] arr = { new PetrolPump(6, 4), new PetrolPump(3, 6), new PetrolPump(7, 3) };
-		firstCircularTourthatVisitAllPetrolPumpsGFGOptimized(arr);
+		int arr[] = { 12, 34, 45, 9, 8, 90, 3 };
+		segregateEvenAndOdd(arr);
+		printArray(arr);
+
+		// PetrolPump[] arr = { new PetrolPump(6, 4), new PetrolPump(3, 6), new
+		// PetrolPump(7, 3) };
+		// firstCircularTourthatVisitAllPetrolPumpsGFGOptimized(arr);
 		// int arrChocolate[] = { 12, 4, 7, 9, 2, 23, 25, 41, 30, 40, 28, 42,
 		// 30, 44, 48, 43, 50 };
 		// int student = 7;
@@ -2332,6 +2337,14 @@ public class TestSort {
 		return count;
 	}
 
+	/**
+	 * concept behind this is regarding number subtracting 1 and number & makes
+	 * rightmost set bit unset so (n&(n-1)) makes rightmost bit unset so we can
+	 * count number of bits set while n !=0
+	 * 
+	 * @param number
+	 * @return
+	 */
 	public static int countNumberOfBits2(int number) {
 		int count = 0;
 		while (number != 0) {
@@ -3237,5 +3250,41 @@ public class TestSort {
 		}
 
 		System.out.println("solution for GFG: " + start);
+	}
+
+	/**
+	 * this same logic to partition used for segregate 0 and 1
+	 * 
+	 * @param arr
+	 */
+	public static void segregateEvenAndOdd(int[] arr) {
+		int left = 0, right = arr.length - 1;
+
+		while (left < right) {
+			while (arr[left] % 2 == 0 && left < right) {
+				left++;
+			}
+
+			while (arr[right] % 2 != 0 && left < right) {
+				right--;
+			}
+
+			if (left < right) {
+				swap(arr, left, right);
+				left++;
+				right--;
+			}
+		}
+	}
+
+	/**
+	 * depends of isPowerOfTwo written concept there in that method also one
+	 * more logic for power of two if only one bit set then also power of two
+	 * 
+	 * @param n
+	 * @return
+	 */
+	private static boolean isPowerOfTwo(int n) {
+		return n != 0 && ((n & (n - 1)) == 0);
 	}
 }
