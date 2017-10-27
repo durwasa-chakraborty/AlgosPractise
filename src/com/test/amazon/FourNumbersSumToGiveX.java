@@ -15,19 +15,22 @@ import java.util.Scanner;
 public class FourNumbersSumToGiveX {
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		int testCases = scanner.nextInt();
-		for (int i = 0; i < testCases; i++) {
-			int n = scanner.nextInt();
-			int[] arr = new int[n];
-			for (int j = 0; j < n; j++) {
-				arr[j] = scanner.nextInt();
-			}
+		// Scanner scanner = new Scanner(System.in);
+		// int testCases = scanner.nextInt();
+		// for (int i = 0; i < testCases; i++) {
+		// int n = scanner.nextInt();
+		// int[] arr = new int[n];
+		// for (int j = 0; j < n; j++) {
+		// arr[j] = scanner.nextInt();
+		// }
+		//
+		// int X = scanner.nextInt();
+		// System.out.println(getFourNumbersSumUsingMap(arr, X, n));
+		// System.out.println(getFourNumbersSum(arr, 0, X, 4) + " ");
+		// }
 
-			int X = scanner.nextInt();
-			System.out.println(getFourNumbersSumUsingMap(arr, X, n));
-			// System.out.println(getFourNumbersSum(arr, 0, X, 4) + " ");
-		}
+		int[] arr = { 10, 20, 30, 40, 1, 2 };
+		printFourNumberSum(arr, 91, arr.length);
 	}
 
 	private static int getFourNumbersSumUsingMap(int[] arr, int x, int n) {
@@ -78,14 +81,23 @@ public class FourNumbersSumToGiveX {
 		int l = 0, r = aux.length - 1;
 
 		while (l <= r) {
-			if ((aux[l].sum + aux[r].sum == x) && noCommon(aux[l], aux[r])) {
-
+			int tempSum = aux[l].sum + aux[r].sum;
+			if ((tempSum == x) && !isCommonIndex(aux[l], aux[r])) {
+				System.out.println("elements : " + arr[aux[l].x] + " " + arr[aux[l].y] + " " + arr[aux[r].x] + " "
+						+ arr[aux[r].y]);
+				l++;
+				r--;
+				return;
+			} else if (tempSum < x) {
+				l++;
+			} else {
+				r--;
 			}
 		}
 
 	}
 
-	private static boolean noCommon(Pair pair, Pair pair2) {
+	private static boolean isCommonIndex(Pair pair, Pair pair2) {
 		return pair.x == pair2.y || pair.x == pair2.x || pair.y == pair2.x || pair.y == pair2.y;
 	}
 
