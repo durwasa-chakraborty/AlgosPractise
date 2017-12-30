@@ -1,9 +1,10 @@
 package com.test;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class TestClass {
+public class TestClass implements Serializable {
 	static Comparator<String> comp = new Comparator<String>() {
 
 		@Override
@@ -80,5 +81,10 @@ public class TestClass {
 		// hashSet.add("1 12 2 5 $");
 		// hashSet.add("1 6 5 4 $");
 		// System.out.println("hash set size : " + hashSet.size());
+	}
+
+	private Object readResolve()
+	{
+		return null;
 	}
 }

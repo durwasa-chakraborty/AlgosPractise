@@ -203,6 +203,49 @@ class LinkedList {
 		nodeY.setNext(tmpS);
 	}
 
+	public void swapLLPractise(int x, int y) {
+		NodeLL temp = head;
+
+		NodeLL prevNodeX = null, prevNodeY = null;
+		NodeLL nodeX = null, nodeY = null;
+		if (temp.data == x) {
+			nodeX = temp;
+		} else if (temp.data == y) {
+			nodeY = temp;
+		}
+
+		while (temp.next != null && (nodeX == null || nodeY == null)) {
+			if (temp.next.data == x) {
+				nodeX = temp.next;
+				prevNodeX = temp;
+			} else if (temp.next.data == y) {
+				nodeY = temp.next;
+				prevNodeY = temp;
+			}
+			temp = temp.next;
+		}
+
+		if (nodeX != null && nodeY != null) {
+			if (prevNodeX == null) {
+				NodeLL next = nodeX.next;
+				nodeX.next = nodeY.next;
+				nodeY.next = next;
+				head = nodeY;
+				prevNodeY.next = nodeX;
+			} else if (prevNodeY == null) {
+				NodeLL next = nodeY.next;
+				nodeY.next = nodeX.next;
+				nodeX.next = next;
+				head = nodeX;
+				prevNodeX.next = nodeY;
+			} else {
+				swapNext(prevNodeX, prevNodeY);
+				swapNext(nodeX, nodeY);
+			}
+		}
+
+	}
+
 	public static NodeLL reverseLinkedList(NodeLL head) {
 
 		if (head == null) {
@@ -369,7 +412,7 @@ class LinkedList {
 		return head;
 	}
 
-	private static NodeLL addTwoLists(LinkedList list1, LinkedList list2) {
+	private static NodeLL addTwoNumbersRepresentedByLinkedLists(LinkedList list1, LinkedList list2) {
 
 		if (list1.head == null) {
 			return list2.head;
@@ -554,7 +597,8 @@ class LinkedList {
 			return null;
 		}
 
-		NodeLL addNode = addTwoListsSameSize(list1 != null ? list1.next : null, list2 != null ? list2.next : null, false);
+		NodeLL addNode = addTwoListsSameSize(list1 != null ? list1.next : null, list2 != null ? list2.next : null,
+				false);
 		int add = (list1 != null ? list1.data : 0) + (list2 != null ? list2.data : 0);
 		int prevRem = 0;
 		if (addNode != null && addNode.data >= 10) {
